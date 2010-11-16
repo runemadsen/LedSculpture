@@ -5,6 +5,8 @@
 #include "ofMain.h"
 #include "ofxHttpUtils.h"
 #include "json/json.h"
+#include "Constants.h"
+#include "BoxesController.h"
 
 class testApp : public ofBaseApp
 {
@@ -24,6 +26,8 @@ class testApp : public ofBaseApp
 		void newResponse(ofxHttpResponse & response);
 		void newError(string error);
 		void parseJSON(string s);
+	
+		BoxesController * boxes;
 		
 		ofTrueTypeFont myFont;
 	

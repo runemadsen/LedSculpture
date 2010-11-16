@@ -9,9 +9,24 @@ void testApp::setup()
 	ofBackground(255, 255, 255);
 	myFont.loadFont("Verdana.ttf", 32);
 	
+	boxes = new BoxesController(20, 100);
+	
 	url = "http://www.runemadsen.com/zeven.php";
 	ofAddListener(httpUtils.newResponseEvent, this, &testApp::newResponse);
 	httpUtils.start();
+}
+
+//--------------------------------------------------------------
+void testApp::update()
+{
+	
+}
+
+//--------------------------------------------------------------
+void testApp::draw()
+{
+	ofSetColor(0, 0, 0);
+	boxes->draw();
 }
 
 void testApp::newResponse(ofxHttpResponse & response)
@@ -46,17 +61,6 @@ void testApp::parseJSON(string s)
 		// i is cell number
 		// cells[ofToString(i, 0)] is on or off
 	}
-}
-
-//--------------------------------------------------------------
-void testApp::update(){
-
-}
-
-//--------------------------------------------------------------
-void testApp::draw()
-{
-	ofSetColor(0, 0, 0);
 }
 
 //--------------------------------------------------------------
