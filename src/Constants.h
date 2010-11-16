@@ -1,5 +1,0 @@
-#define NUM_BOXES 64
-#define NUM_BOXES_LEFT 16
-#define NUM_BOXES_RIGHT 16
-#define NUM_BOXES_CENTER 16
-#define BOX_SIZE 50

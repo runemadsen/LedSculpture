@@ -28,8 +28,6 @@ class testApp : public ofBaseApp
 		void parseJSON(string s);
 	
 		BoxesController * boxes;
-		
-		ofTrueTypeFont myFont;
 	
 		Json::Value root;   // will contains the root value after parsing.
 		Json::Reader reader;

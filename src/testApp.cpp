@@ -7,8 +7,9 @@ void testApp::setup()
 {
 	ofSetFrameRate(12);
 	ofBackground(255, 255, 255);
-	myFont.loadFont("Verdana.ttf", 32);
 	
+	ofEnableSmoothing();
+		
 	boxes = new BoxesController(20, 100);
 	
 	url = "http://www.runemadsen.com/zeven.php";
@@ -66,9 +67,22 @@ void testApp::parseJSON(string s)
 //--------------------------------------------------------------
 void testApp::keyPressed(int key)
 {
-	ofxHttpForm form;
+	if(key == 'x')
+		boxes->setProperty("x", -1);
+	else if(key == 'X')
+		boxes->setProperty("x", 1);
+	else if(key == 'y')
+		boxes->setProperty("y", -1);
+	else if(key == 'Y')
+		boxes->setProperty("y", -1);
+	else if(key == 's')
+		boxes->setProperty("size", -1);
+	else if(key == 'S')
+		boxes->setProperty("size", 1);	
+	
+	/*ofxHttpForm form;
 	form.method = OFX_HTTP_GET;
-	httpUtils.addUrl(url);
+	httpUtils.addUrl(url);*/
 }
 
 //--------------------------------------------------------------

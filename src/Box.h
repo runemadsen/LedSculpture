@@ -8,10 +8,12 @@ class Box
 
 public:
 	
-	Box(float x, float y);
+	Box(float x, float y, int boxSize);
 	void draw();
+	int _boxSize;
 	
 private:
 	
 	ofPoint _loc;
+	
 };

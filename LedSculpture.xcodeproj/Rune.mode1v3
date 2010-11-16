@@ -326,17 +326,17 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A5848EC31293463C00C84ACD</string>
+										<string>A5848F2D12934E5700C84ACD</string>
 										<key>history</key>
 										<array>
-											<string>A5848E7A1293431E00C84ACD</string>
-											<string>A5848EB01293460C00C84ACD</string>
-											<string>A5848EB11293460C00C84ACD</string>
-											<string>A5848EB41293460C00C84ACD</string>
-											<string>A5848EBA1293462600C84ACD</string>
-											<string>A5848EC01293463C00C84ACD</string>
 											<string>A5848EC11293463C00C84ACD</string>
-											<string>A5848EC21293463C00C84ACD</string>
+											<string>A5848EDE129349A700C84ACD</string>
+											<string>A5848F0012934CC000C84ACD</string>
+											<string>A5848F0112934CC000C84ACD</string>
+											<string>A5848F1012934DD500C84ACD</string>
+											<string>A5848F1A12934E0A00C84ACD</string>
+											<string>A5848F2412934E4000C84ACD</string>
+											<string>A5848F2512934E4000C84ACD</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -348,14 +348,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 0}, {1146, 572}}</string>
+								<string>{{0, 0}, {1146, 773}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 59 1440 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>PBXNavigatorGroup</string>
 							<key>Proportion</key>
-							<string>572pt</string>
+							<string>773pt</string>
 						</dict>
 						<dict>
 							<key>ContentConfiguration</key>
@@ -368,14 +368,14 @@
 							<key>GeometryConfiguration</key>
 							<dict>
 								<key>Frame</key>
-								<string>{{0, 577}, {1146, 201}}</string>
+								<string>{{0, 778}, {1146, 0}}</string>
 								<key>RubberWindowFrame</key>
 								<string>0 59 1440 819 0 0 1440 878 </string>
 							</dict>
 							<key>Module</key>
 							<string>XCDetailModule</string>
 							<key>Proportion</key>
-							<string>201pt</string>
+							<string>0pt</string>
 						</dict>
 					</array>
 					<key>Proportion</key>
@@ -534,7 +534,6 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>A5848EC41293463C00C84ACD</string>
 		<string>A5848DD212933BDB00C84ACD</string>
 		<string>A5848DD312933BDB00C84ACD</string>
 		<string>1C78EAAD065D492600B07095</string>
@@ -564,7 +563,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>BoxesController.h</string>
+								<string>BoxesController.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
