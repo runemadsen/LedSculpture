@@ -27,6 +27,8 @@ class testApp : public ofBaseApp
 		void newError(string error);
 		void parseJSON(string s);
 	
+		ofColor getColorFromString(string color);
+	
 		BoxesController * boxes;
 	
 		Json::Value root;   // will contains the root value after parsing.

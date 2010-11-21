@@ -8,6 +8,8 @@ BoxesController::BoxesController(float x, float y)
 	_loc.set(x, y);
 	_boxSize = 40;
 	
+	_curId = 1;
+	
 	createBoxes();
 }
 
@@ -25,9 +27,21 @@ void BoxesController::createBoxes()
 	
 	createShape(0, _boxSize, left, 20, 5);
 	
+	// create right shape
+	int right[20] = {	0, 1, 1, 1, 0, 
+		1, 1, 1, 1, 1, 
+		1, 1, 1, 1, 1, 
+		0, 1, 1, 1, 0
+	};
+	
+	createShape(_boxSize * 14, _boxSize, left, 20, 5);
+	
 	// create small box left
 	int leftSingle[1] = {1};
 	createShape(_boxSize * 5, _boxSize * 2.5, leftSingle, 1, 1);
+	
+	// create small box right
+	createShape(_boxSize * 13, _boxSize * 2.5, leftSingle, 1, 1);
 	
 	// create center shape
 	int center[42] = {	0, 0, 1, 1, 1, 0, 0,
@@ -39,18 +53,6 @@ void BoxesController::createBoxes()
 	};
 	
 	createShape(_boxSize * 6, 0, center, 42, 7);
-	
-	// create small box right
-	createShape(_boxSize * 13, _boxSize * 2.5, leftSingle, 1, 1);
-	
-	// create right shape
-	int right[20] = {	0, 1, 1, 1, 0, 
-		1, 1, 1, 1, 1, 
-		1, 1, 1, 1, 1, 
-		0, 1, 1, 1, 0
-	};
-	
-	createShape(_boxSize * 14, _boxSize, left, 20, 5);
 }
 
 /*	Draw
@@ -78,7 +80,9 @@ void BoxesController::createShape(int startX, int startY, int slots[], int slotl
 	{
 		if(slots[i] == 1)
 		{
-			_boxes.push_back(new Box(xPos, yPos, _boxSize));
+			_boxes.push_back(new Box(_curId, xPos, yPos, _boxSize));
+			
+			_curId++;
 		}
 		
 		xPos += _boxSize;
@@ -112,4 +116,17 @@ void BoxesController::setProperty(string p, float add)
 		
 		createBoxes();
 	}
+}
+
+Box * BoxesController::getBox(int boxid)
+{
+	for(int i = 0; i < _boxes.size(); i++)
+	{
+		if(boxid == _boxes[i]->getId())
+		{
+			return _boxes[i];
+		}
+	}
+	
+	return NULL;
 }
