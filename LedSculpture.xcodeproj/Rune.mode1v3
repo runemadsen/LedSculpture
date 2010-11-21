@@ -326,7 +326,7 @@
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A55386D31298AFD6008DDA25</string>
+										<string>A55BB4931298D2C100F3BFF0</string>
 										<key>history</key>
 										<array>
 											<string>A5848EC11293463C00C84ACD</string>
@@ -340,7 +340,7 @@
 											<string>A55386C71298AFA0008DDA25</string>
 											<string>A55386D01298AFD6008DDA25</string>
 											<string>A55386D11298AFD6008DDA25</string>
-											<string>A55386D21298AFD6008DDA25</string>
+											<string>A55386D61298C383008DDA25</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -398,9 +398,9 @@
 			</array>
 			<key>TableOfContents</key>
 			<array>
-				<string>A553863512989B73008DDA25</string>
+				<string>A55BB4861298D0AF00F3BFF0</string>
 				<string>1CE0B1FE06471DED0097A5F4</string>
-				<string>A553863612989B73008DDA25</string>
+				<string>A55BB4871298D0AF00F3BFF0</string>
 				<string>1CE0B20306471E060097A5F4</string>
 				<string>1CE0B20506471E060097A5F4</string>
 			</array>
@@ -538,11 +538,10 @@
 	<integer>5</integer>
 	<key>WindowOrderList</key>
 	<array>
-		<string>A55386D41298AFD6008DDA25</string>
-		<string>A553864412989BD5008DDA25</string>
-		<string>A553864512989BD5008DDA25</string>
-		<string>1CD10A99069EF8BA00B06720</string>
+		<string>A55BB4911298D0AF00F3BFF0</string>
+		<string>A55BB4921298D0AF00F3BFF0</string>
 		<string>1C78EAAD065D492600B07095</string>
+		<string>1CD10A99069EF8BA00B06720</string>
 		<string>A5CE4DFE128B4E6D006809D1</string>
 		<string>/Users/Rune/Projects/Open Frameworks/Open Frameworks 0061 FAT/apps/Sound and Light/LedSculpture/LedSculpture.xcodeproj</string>
 	</array>
@@ -568,7 +567,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Box.cpp</string>
+								<string></string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -585,8 +584,6 @@
 							<string>311pt</string>
 						</dict>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -626,7 +623,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>A5CE4DFE128B4E6D006809D1</string>
-				<string>A553863712989B73008DDA25</string>
+				<string>A55BB4881298D0AF00F3BFF0</string>
 				<string>1CD0528F0623707200166675</string>
 				<string>XCMainBuildResultsModuleGUID</string>
 			</array>
@@ -748,13 +745,13 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1CD10A99069EF8BA00B06720</string>
-				<string>A553863D12989BD5008DDA25</string>
+				<string>A55BB4891298D0AF00F3BFF0</string>
 				<string>1C162984064C10D400B95A72</string>
-				<string>A553863E12989BD5008DDA25</string>
-				<string>A553863F12989BD5008DDA25</string>
-				<string>A553864012989BD5008DDA25</string>
-				<string>A553864112989BD5008DDA25</string>
-				<string>A553864212989BD5008DDA25</string>
+				<string>A55BB48A1298D0AF00F3BFF0</string>
+				<string>A55BB48B1298D0AF00F3BFF0</string>
+				<string>A55BB48C1298D0AF00F3BFF0</string>
+				<string>A55BB48D1298D0AF00F3BFF0</string>
+				<string>A55BB48E1298D0AF00F3BFF0</string>
 			</array>
 			<key>ToolbarConfiguration</key>
 			<string>xcode.toolbar.config.debugV3</string>
@@ -881,8 +878,6 @@
 					<key>Dock</key>
 					<array>
 						<dict>
-							<key>BecomeActive</key>
-							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>
@@ -918,7 +913,7 @@
 			<key>TableOfContents</key>
 			<array>
 				<string>1C78EAAD065D492600B07095</string>
-				<string>A553863912989B9E008DDA25</string>
+				<string>A55BB48F1298D0AF00F3BFF0</string>
 				<string>1C78EAAC065D492600B07095</string>
 			</array>
 			<key>ToolbarConfiguration</key>
