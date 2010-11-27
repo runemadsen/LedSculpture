@@ -12,6 +12,10 @@
 		1FD4F861118A348B0030E69D /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4F85D118A348B0030E69D /* json_writer.cpp */; };
 		A54013C5128CBF83001E9EEB /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A54013C4128CBF83001E9EEB /* Box.cpp */; };
 		A5848EA91293446F00C84ACD /* BoxesController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5848EA81293446F00C84ACD /* BoxesController.cpp */; };
+		A599A6FC12A1A93100448578 /* Particles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A599A6FB12A1A93100448578 /* Particles.cpp */; };
+		A599A70F12A1A99500448578 /* ofxMatrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A599A70212A1A99500448578 /* ofxMatrix3x3.cpp */; };
+		A599A71012A1A99500448578 /* ofxMatrix4x4.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A599A70412A1A99500448578 /* ofxMatrix4x4.cpp */; };
+		A599A71112A1A99500448578 /* ofxQuaternion.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A599A70912A1A99500448578 /* ofxQuaternion.cpp */; };
 		A5CE4E08128B4E81006809D1 /* ofxHttpUtils.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5CE4E06128B4E81006809D1 /* ofxHttpUtils.cpp */; };
 		A5CE4E43128B5047006809D1 /* ofxThread.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5CE4E41128B5047006809D1 /* ofxThread.cpp */; };
 		E45BE0AA0E8CC67C009D7055 /* GLee.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E45BE0A90E8CC67C009D7055 /* GLee.a */; };
@@ -94,6 +98,22 @@
 		A5427253128CC1C600D260E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		A5848EA71293446F00C84ACD /* BoxesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxesController.h; sourceTree = "<group>"; };
 		A5848EA81293446F00C84ACD /* BoxesController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoxesController.cpp; sourceTree = "<group>"; };
+		A599A6FA12A1A93100448578 /* Particles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particles.h; sourceTree = "<group>"; };
+		A599A6FB12A1A93100448578 /* Particles.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Particles.cpp; sourceTree = "<group>"; };
+		A599A70212A1A99500448578 /* ofxMatrix3x3.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMatrix3x3.cpp; sourceTree = "<group>"; };
+		A599A70312A1A99500448578 /* ofxMatrix3x3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMatrix3x3.h; sourceTree = "<group>"; };
+		A599A70412A1A99500448578 /* ofxMatrix4x4.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxMatrix4x4.cpp; sourceTree = "<group>"; };
+		A599A70512A1A99500448578 /* ofxMatrix4x4.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxMatrix4x4.h; sourceTree = "<group>"; };
+		A599A70612A1A99500448578 /* ofxPoint2f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPoint2f.h; sourceTree = "<group>"; };
+		A599A70712A1A99500448578 /* ofxPoint3f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPoint3f.h; sourceTree = "<group>"; };
+		A599A70812A1A99500448578 /* ofxPoint4f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxPoint4f.h; sourceTree = "<group>"; };
+		A599A70912A1A99500448578 /* ofxQuaternion.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxQuaternion.cpp; sourceTree = "<group>"; };
+		A599A70A12A1A99500448578 /* ofxQuaternion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxQuaternion.h; sourceTree = "<group>"; };
+		A599A70B12A1A99500448578 /* ofxVec2f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVec2f.h; sourceTree = "<group>"; };
+		A599A70C12A1A99500448578 /* ofxVec3f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVec3f.h; sourceTree = "<group>"; };
+		A599A70D12A1A99500448578 /* ofxVec4f.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVec4f.h; sourceTree = "<group>"; };
+		A599A70E12A1A99500448578 /* ofxVectorMath.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxVectorMath.h; sourceTree = "<group>"; };
+		A599A71612A1A9CC00448578 /* Tools.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Tools.h; sourceTree = "<group>"; };
 		A5CE4E05128B4E81006809D1 /* ofxHttpTypes.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHttpTypes.h; sourceTree = "<group>"; };
 		A5CE4E06128B4E81006809D1 /* ofxHttpUtils.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxHttpUtils.cpp; sourceTree = "<group>"; };
 		A5CE4E07128B4E81006809D1 /* ofxHttpUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxHttpUtils.h; sourceTree = "<group>"; };
@@ -187,9 +207,31 @@
 			path = "src/jsoncpp-src-0.5.0/src/lib_json";
 			sourceTree = SOURCE_ROOT;
 		};
+		A599A70112A1A99500448578 /* ofxVectorMath */ = {
+			isa = PBXGroup;
+			children = (
+				A599A70212A1A99500448578 /* ofxMatrix3x3.cpp */,
+				A599A70312A1A99500448578 /* ofxMatrix3x3.h */,
+				A599A70412A1A99500448578 /* ofxMatrix4x4.cpp */,
+				A599A70512A1A99500448578 /* ofxMatrix4x4.h */,
+				A599A70612A1A99500448578 /* ofxPoint2f.h */,
+				A599A70712A1A99500448578 /* ofxPoint3f.h */,
+				A599A70812A1A99500448578 /* ofxPoint4f.h */,
+				A599A70912A1A99500448578 /* ofxQuaternion.cpp */,
+				A599A70A12A1A99500448578 /* ofxQuaternion.h */,
+				A599A70B12A1A99500448578 /* ofxVec2f.h */,
+				A599A70C12A1A99500448578 /* ofxVec3f.h */,
+				A599A70D12A1A99500448578 /* ofxVec4f.h */,
+				A599A70E12A1A99500448578 /* ofxVectorMath.h */,
+			);
+			name = ofxVectorMath;
+			path = ../../../addons/ofxVectorMath/src;
+			sourceTree = SOURCE_ROOT;
+		};
 		A5CE4E01128B4E71006809D1 /* addons */ = {
 			isa = PBXGroup;
 			children = (
+				A599A70112A1A99500448578 /* ofxVectorMath */,
 				A5CE4E40128B5047006809D1 /* ofxThread */,
 				A5CE4E04128B4E81006809D1 /* ofxHttpUtils */,
 			);
@@ -418,6 +460,9 @@
 				A5427253128CC1C600D260E3 /* Constants.h */,
 				A5848EA71293446F00C84ACD /* BoxesController.h */,
 				A5848EA81293446F00C84ACD /* BoxesController.cpp */,
+				A599A6FA12A1A93100448578 /* Particles.h */,
+				A599A6FB12A1A93100448578 /* Particles.cpp */,
+				A599A71612A1A9CC00448578 /* Tools.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -592,6 +637,10 @@
 				A5CE4E43128B5047006809D1 /* ofxThread.cpp in Sources */,
 				A54013C5128CBF83001E9EEB /* Box.cpp in Sources */,
 				A5848EA91293446F00C84ACD /* BoxesController.cpp in Sources */,
+				A599A6FC12A1A93100448578 /* Particles.cpp in Sources */,
+				A599A70F12A1A99500448578 /* ofxMatrix3x3.cpp in Sources */,
+				A599A71012A1A99500448578 /* ofxMatrix4x4.cpp in Sources */,
+				A599A71112A1A99500448578 /* ofxQuaternion.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

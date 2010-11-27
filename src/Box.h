@@ -15,6 +15,14 @@ public:
 	
 	void update(bool state, ofColor color, int userid);
 	
+	bool getState() { return _state; }
+	int getUserId() { return _userid; }
+	ofColor getColor() { return _color; }
+	
+	Box * getPartner() { return _partner; }
+	
+	void setPartner(Box * partner);
+	
 private:
 	
 	int _id;
@@ -25,4 +33,5 @@ private:
 	ofPoint _loc;
 	int _boxSize;
 	
+	Box * _partner;
 };

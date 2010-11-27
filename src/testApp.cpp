@@ -36,6 +36,19 @@ void testApp::draw()
 	boxes->draw();
 }
 
+/* HTTP Events
+ _________________________________________________________________ */
+
+void testApp::newResponse(ofxHttpResponse & response)
+{
+	parseJSON(response.responseBody);
+}
+
+void testApp::newError(string error)
+{
+    printf("new error = %s\n", error.c_str());
+}
+
 /* JSON parse
  _________________________________________________________________ */
 
@@ -56,20 +69,8 @@ void testApp::parseJSON(string s)
 	
 	for(int i = 0; i < cells.size(); i++)
 	{
-		Json::Value cell = cells[ofToString(i, 0)];
-		int boxid = cell["cellid"].asInt();
-		
-		Box * box = boxes->getBox(boxid);
-		
-		if(box != NULL)
-		{
-			box->update(cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
-		}
-		else 
-		{
-			cout << "Box with id: " << boxid << " was not found" << endl;
-		}
-
+		Json::Value cell = cells[ofToString(i, 0)];		
+		boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
 	}
 }
 
@@ -115,20 +116,6 @@ ofColor testApp::getColorFromString(string color)
 	}
 	
 	return c;
-
-}
-
-/* HTTP Events
- _________________________________________________________________ */
-
-void testApp::newResponse(ofxHttpResponse & response)
-{
-	parseJSON(response.responseBody);
-}
-
-void testApp::newError(string error)
-{
-    printf("new error = %s\n", error.c_str());
 }
 
 /* Key Events
@@ -151,6 +138,12 @@ void testApp::keyPressed(int key)
 	else if(key == 'l')
 	{
 		httpUtils.addUrl(url);
+	}
+	else if(key >= '1' && key <= '9')
+	{
+		Box * box = boxes->getBox(key - '0');
+		
+		boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
 	}
 }
 

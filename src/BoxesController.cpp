@@ -18,7 +18,7 @@ BoxesController::BoxesController(float x, float y)
 
 void BoxesController::createBoxes()
 {
-	// create left shape
+	// create left shape (id 1-16)
 	int left[20] = {	0, 1, 1, 1, 0, 
 		1, 1, 1, 1, 1, 
 		1, 1, 1, 1, 1, 
@@ -27,7 +27,7 @@ void BoxesController::createBoxes()
 	
 	createShape(0, _boxSize, left, 20, 5);
 	
-	// create right shape
+	// create right shape (id 17-32)
 	int right[20] = {	0, 1, 1, 1, 0, 
 		1, 1, 1, 1, 1, 
 		1, 1, 1, 1, 1, 
@@ -36,14 +36,14 @@ void BoxesController::createBoxes()
 	
 	createShape(_boxSize * 14, _boxSize, left, 20, 5);
 	
-	// create small box left
+	// create small box left (id 33)
 	int leftSingle[1] = {1};
 	createShape(_boxSize * 5, _boxSize * 2.5, leftSingle, 1, 1);
 	
-	// create small box right
+	// create small box right (id 34)
 	createShape(_boxSize * 13, _boxSize * 2.5, leftSingle, 1, 1);
 	
-	// create center shape
+	// create center shape (id 35-64)
 	int center[42] = {	0, 0, 1, 1, 1, 0, 0,
 		0, 1, 1, 1, 1, 1, 0,
 		1, 1, 1, 1, 1, 1, 1, 
@@ -93,6 +93,63 @@ void BoxesController::createShape(int startX, int startY, int slots[], int slotl
 			yPos += _boxSize;
 		}
 	}
+}
+
+/*	Update box
+ ________________________________________________________________ */
+
+
+void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid)
+{
+	Box * box = getBox(boxid);
+	
+	if (box != NULL) 
+	{
+		if (box->getState() != state && state) 
+		{			
+			Box * partner = findBoxWithoutPatner();
+				
+			box->setPartner(partner);
+			//partner->setPartner(box);
+		}
+		
+		box->update(state, color, userid);
+	}
+	else 
+	{
+		cout << "Box not found \n";
+	}
+}
+
+/*	Get box without partner
+ ________________________________________________________________ */
+
+Box * BoxesController::findBoxWithoutPatner()
+{
+	for(int i = 35; i <= 64; i++)
+	{
+		bool partnered = false;
+		
+		for (int j = 1; j <= 32; j++) 
+		{
+			Box * box = getBox(j);
+			
+			if(box->getPartner() != NULL)
+			{
+				if(box->getPartner()->getId() == i)
+				{
+					partnered = true;
+				}
+			}
+		}
+		
+		if(!partnered)
+		{
+			return getBox(i);
+		}
+	}
+	
+	return NULL;
 }
 
 /*	Getter / Setter

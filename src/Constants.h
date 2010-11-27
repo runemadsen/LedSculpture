@@ -11,3 +11,8 @@
 #define CYAN "cyan"
 #define PINK "pink"
 #define ORANGE "orange"
+
+/* Particles
+ _________________________________________________________________ */
+
+#define MAX_PARTICLES 1000
