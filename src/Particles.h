@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Box.h"
 #include "ofMain.h"
 #include "ofxVec2f.h"
 #include "Tools.h"
@@ -50,5 +51,9 @@ private:
 	
 	float		life[MAX_PARTICLES][2];		//	[life] [life rate] 
 	
+	vector <PSetting> settings;
+	
 	int numParticles;
+	
+	Box * _model;
 };

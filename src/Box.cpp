@@ -1,5 +1,8 @@
 #include "Box.h"
 
+/* Constructor
+ _________________________________________________________________ */
+
 Box::Box(int id, float x, float y, int boxSize)
 {
 	_id = id;
@@ -15,7 +18,11 @@ Box::Box(int id, float x, float y, int boxSize)
 	_color.b = 0;
 	
 	_partner = NULL;
+	//_particles = NULL;
 }
+
+/* Update
+ _________________________________________________________________ */
 
 void Box::update(bool state, ofColor color, int userid)
 {
@@ -34,6 +41,9 @@ void Box::update(bool state, ofColor color, int userid)
 	}
 }
 
+/* Draw
+ _________________________________________________________________ */
+
 void Box::draw()
 {		
 	ofFill();
@@ -45,6 +55,9 @@ void Box::draw()
 
 	ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
 }
+
+/* Getter / Setter
+ _________________________________________________________________ */
 
 void Box::setPartner(Box * partner)
 {	

@@ -271,8 +271,8 @@
 							<key>PBXSmartGroupTreeModuleOutlineStateSelectionKey</key>
 							<array>
 								<array>
-									<integer>12</integer>
-									<integer>6</integer>
+									<integer>13</integer>
+									<integer>7</integer>
 									<integer>0</integer>
 								</array>
 							</array>
@@ -314,7 +314,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CE0B20306471E060097A5F4</string>
 								<key>PBXProjectModuleLabel</key>
-								<string>Box.cpp</string>
+								<string>Box.h</string>
 								<key>PBXSplitModuleInNavigatorKey</key>
 								<dict>
 									<key>Split0</key>
@@ -322,11 +322,11 @@
 										<key>PBXProjectModuleGUID</key>
 										<string>1CE0B20406471E060097A5F4</string>
 										<key>PBXProjectModuleLabel</key>
-										<string>Box.cpp</string>
+										<string>Box.h</string>
 										<key>_historyCapacity</key>
 										<integer>0</integer>
 										<key>bookmark</key>
-										<string>A599A6F812A1A5B600448578</string>
+										<string>A599A79312A1B15400448578</string>
 										<key>history</key>
 										<array>
 											<string>A5848EC11293463C00C84ACD</string>
@@ -334,13 +334,19 @@
 											<string>A5C57A911298980700DC0E35</string>
 											<string>A5C57A961298988A00DC0E35</string>
 											<string>A553867F12989EA1008DDA25</string>
-											<string>A55386C71298AFA0008DDA25</string>
-											<string>A599A6AF12A19FDA00448578</string>
-											<string>A599A6BD12A1A1D600448578</string>
-											<string>A599A6BE12A1A1D600448578</string>
-											<string>A599A6F012A1A59400448578</string>
-											<string>A599A6F112A1A59400448578</string>
-											<string>A599A6E312A1A4F800448578</string>
+											<string>A599A71D12A1ABC700448578</string>
+											<string>A599A72012A1ABC700448578</string>
+											<string>A599A72212A1ABC700448578</string>
+											<string>A599A72412A1ABC700448578</string>
+											<string>A599A72512A1ABC700448578</string>
+											<string>A599A72912A1ABC700448578</string>
+											<string>A599A76C12A1AFDB00448578</string>
+											<string>A599A78812A1B0E000448578</string>
+											<string>A599A78912A1B0E000448578</string>
+											<string>A599A78A12A1B0E000448578</string>
+											<string>A599A78B12A1B0E000448578</string>
+											<string>A599A78C12A1B0E000448578</string>
+											<string>A599A78D12A1B0E000448578</string>
 										</array>
 									</dict>
 									<key>SplitCount</key>
@@ -567,7 +573,7 @@
 								<key>PBXProjectModuleGUID</key>
 								<string>1CD0528F0623707200166675</string>
 								<key>PBXProjectModuleLabel</key>
-								<string></string>
+								<string>main.cpp</string>
 								<key>StatusBarVisibility</key>
 								<true/>
 							</dict>
@@ -584,6 +590,8 @@
 							<string>311pt</string>
 						</dict>
 						<dict>
+							<key>BecomeActive</key>
+							<true/>
 							<key>ContentConfiguration</key>
 							<dict>
 								<key>PBXProjectModuleGUID</key>

@@ -2,6 +2,7 @@
 
 #include "ofMain.h"
 #include "Constants.h"
+#include "Particles.h"
 
 class Box
 {
@@ -18,9 +19,10 @@ public:
 	bool getState() { return _state; }
 	int getUserId() { return _userid; }
 	ofColor getColor() { return _color; }
-	
 	Box * getPartner() { return _partner; }
-	
+	bool visible() { return _state; }
+	ofPoint getLoc() { return _loc; }
+
 	void setPartner(Box * partner);
 	
 private:
@@ -34,4 +36,6 @@ private:
 	int _boxSize;
 	
 	Box * _partner;
+	
+	Particles * _particles;
 };

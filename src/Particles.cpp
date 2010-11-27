@@ -4,8 +4,30 @@
  _______________________________________________________________________ */
 
 Particles::Particles() 
-{
+{	
 	flare.loadImage("flare_bw.png");
+	
+	PSetting setting1;
+	setting1.percent = 0.4;
+	setting1.sizeMin = 5;
+	setting1.sizeMax = 10;
+	setting1.dirMin = 0.5;
+	setting1.dirMax = 1;
+	//setting1.dirMin = 0.2;
+	//setting1.dirMax = 0.9;
+	setting1.lifeMin = 0.15;
+	setting1.lifeMax = 0.25;
+	settings.push_back(setting1);
+	
+	PSetting setting2;
+	setting2.percent = 0.6;
+	setting1.sizeMin = 5;
+	setting1.sizeMax = 10;
+	setting2.dirMin = 2;
+	setting2.dirMax = 3;
+	setting2.lifeMin = 0.15;
+	setting2.lifeMax = 0.25;
+	settings.push_back(setting2);
 }
 
 /* Init
@@ -40,7 +62,7 @@ void Particles::init()
 
 void Particles::update() 
 {	
-	if(model->visible)	
+	if(_model->visible())	
 	{
 		if(numParticles < MAX_PARTICLES)
 		{
@@ -75,7 +97,7 @@ void Particles::update()
 		
 		if(life[i][0] <= 0.0) 
 		{
-			if(model->visible)	
+			if(_model->visible())	
 			{
 				spawn(i);
 			}
@@ -91,41 +113,30 @@ void Particles::spawn(int i)
 	float percent = 0.0;
 	float random = ofRandomuf();
 	
-	for (int j = 0; j < model->settings.size(); j++) 
+	for (int j = 0; j < settings.size(); j++) 
 	{
-		percent += model->settings[j].percent;
+		percent += settings[j].percent;
 		
 		if (random < percent) 
 		{
-			setParticleSize(i, ofRandom(model->settings[j].sizeMin, model->settings[j].sizeMax));
+			setParticleSize(i, ofRandom(settings[j].sizeMin, settings[j].sizeMax));
 			setParticleColor(i, 1, 1, 1, 1);
 			
-			int max = model->outline.size() - 1;
-			ofPoint thePoint = model->outline[ofRandom(0, max)];
+			//int max = model->outline.size() - 1;
+			//ofPoint thePoint = model->outline[ofRandom(0, max)];
 			
-			// This makes sure the outline is moving if playing
-			// Also makes the particles gravity work on movement
-			if(model->playing)
-			{				
-				ofPoint diff = model->getCurPos() - model->getStartPos();
-				
-				thePoint += diff;
-			}
+			ofPoint thePoint = _model->getLoc();
 			
-			// choose where the particle go
+			// choose where the particle goes
 			ofxVec2f direction;
 			
-			if(model->playing != DISABLED && model->hasDrawing != DISABLED && model->drawingModel != NULL)
-			{				
-				direction.set(model->drawingModel->getCurPos() - thePoint);
-			}
-			else if(model->drawing != DISABLED && model->hasPlaying != DISABLED && model->playingModel != NULL)
-			{	
-				direction.set(model->playingModel->getCurPos() - thePoint);
-			}
-			else 
-			{				
-				direction.set(thePoint - model->getCurPos());
+			if(_model->getPartner() != NULL)
+			{
+				ofxVec2f partnerLoc;
+				partnerLoc.x = _model->getPartner()->getLoc().x;
+				partnerLoc.y = _model->getPartner()->getLoc().y;
+				
+				direction.set(partnerLoc - thePoint);
 			}
 			
 			direction.normalize();
@@ -133,16 +144,16 @@ void Particles::spawn(int i)
 			setParticlePos(i, thePoint.x, thePoint.y);
 			setParticleTexCoords(i, (int)ofRandom(0, 2), (int)ofRandom(0, 2));
 			
-			direction *= ofRandom(model->settings[j].dirMin, model->settings[j].dirMax);
+			direction *= ofRandom(settings[j].dirMin, settings[j].dirMax);
 			
-			life[i][0] = ofRandom(model->settings[j].lifeMin, model->settings[j].lifeMax);
-			life[i][1] = ofRandom(model->settings[j].lifeSubMin, model->settings[j].lifeSubMax);
+			life[i][0] = ofRandom(settings[j].lifeMin, settings[j].lifeMax);
+			life[i][1] = ofRandom(settings[j].lifeSubMin, settings[j].lifeSubMax);
 			
 			acc[i][0] = direction.x;
 			acc[i][1] = direction.y;
 			acc[i][2] = 0;
 			
-			damping[i] = model->settings[j].damping;
+			damping[i] = settings[j].damping;
 			
 			break;
 		}
@@ -261,7 +272,6 @@ void Particles::setParticleColor(int i, float r, float g, float b, float a)
 	if(i < 0) i = 0;
 	if(i > MAX_PARTICLES) i = MAX_PARTICLES;
 	
-	
 	// Color 1
 	color[(i*4)+0].r = r;
 	color[(i*4)+0].g = g;
@@ -285,7 +295,6 @@ void Particles::setParticleColor(int i, float r, float g, float b, float a)
 	color[(i*4)+3].g = g;
 	color[(i*4)+3].b = b;
 	color[(i*4)+3].a = a;
-	
 }
 
 /* Set Particle Position
