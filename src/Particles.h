@@ -1,19 +1,21 @@
-#pragma once
+#ifndef _PARTICLES_
+#define _PARTICLES_
 
-#include "Box.h"
 #include "ofMain.h"
 #include "ofxVec2f.h"
 #include "Tools.h"
 #include "Constants.h"
+
+class Box;
 
 class Particles 
 {
 	
 public:
 	
-	Particles();
+	Particles(Box * model);
 
-	void setTexture(ofImage newTexture, int cellsInRow, int cellsInCol);
+	void setTexture(string newTexture, int cellsInRow, int cellsInCol);
 	
 	void init();
 	void update();
@@ -57,3 +59,5 @@ private:
 	
 	Box * _model;
 };
+
+#endif

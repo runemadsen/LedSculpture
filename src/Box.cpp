@@ -1,4 +1,5 @@
 #include "Box.h"
+#include "Particles.h"
 
 /* Constructor
  _________________________________________________________________ */
@@ -18,26 +19,47 @@ Box::Box(int id, float x, float y, int boxSize)
 	_color.b = 0;
 	
 	_partner = NULL;
-	//_particles = NULL;
+	_particles = NULL;
 }
 
 /* Update
  _________________________________________________________________ */
 
-void Box::update(bool state, ofColor color, int userid)
+void Box::updateState(bool state, ofColor color, int userid)
 {
+	// if first on, create particles
+	if(!_state && state && _particles == NULL)
+	{
+		cout << "Created particles \n";
+		_particles = new Particles(this);
+		_particles->init();
+	}
+	
 	_state = state;
 	_color = color;
 	_userid = userid;
 	
 	if(_partner != NULL)
 	{
-		_partner->update(_state, _color, _userid);
+		_partner->updateState(_state, _color, _userid);
 	}
 	
 	if(!_state && _partner != NULL)
 	{
 		_partner = NULL;
+	}
+}
+
+
+/* Update
+ _________________________________________________________________ */
+
+void Box::update()
+{
+	if(_particles != NULL)
+	{
+		cout << "Updating particles \n";
+		_particles->update();
 	}
 }
 
@@ -47,6 +69,12 @@ void Box::update(bool state, ofColor color, int userid)
 void Box::draw()
 {		
 	ofFill();
+	
+	if(_particles != NULL)
+	{
+		cout << "Rendering particles \n";
+		_particles->render();
+	}
 	
 	if(_state)
 		ofSetColor(_color.r, _color.g, _color.b);

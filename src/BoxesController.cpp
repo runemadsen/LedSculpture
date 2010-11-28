@@ -55,6 +55,17 @@ void BoxesController::createBoxes()
 	createShape(_boxSize * 6, 0, center, 42, 7);
 }
 
+/*	Update
+ ________________________________________________________________ */
+
+void BoxesController::update()
+{	
+	for(int i = 0; i < _boxes.size(); i++)
+	{
+		_boxes[i]->update();
+	}
+}
+
 /*	Draw
  ________________________________________________________________ */
 
@@ -113,7 +124,7 @@ void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid
 			//partner->setPartner(box);
 		}
 		
-		box->update(state, color, userid);
+		box->updateState(state, color, userid);
 	}
 	else 
 	{

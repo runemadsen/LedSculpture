@@ -8,7 +8,7 @@
 void testApp::setup()
 {
 	ofSetFrameRate(12);
-	ofBackground(255, 255, 255);
+	ofBackground(40, 40, 40);
 	
 	ofEnableSmoothing();
 		
@@ -24,7 +24,7 @@ void testApp::setup()
 
 void testApp::update()
 {
-	
+	boxes->update();
 }
 
 /* Draw

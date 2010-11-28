@@ -10,6 +10,8 @@ class BoxesController
 public:
 	
 	BoxesController(float x, float y);
+	
+	void update();
 	void draw();
 	void setProperty(string p, float add);
 	

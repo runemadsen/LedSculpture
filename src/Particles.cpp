@@ -1,11 +1,15 @@
 #include "Particles.h"
+#include "Box.h"
 
 /* Constructor
  _______________________________________________________________________ */
 
-Particles::Particles() 
+Particles::Particles(Box * model) 
 {	
-	flare.loadImage("flare_bw.png");
+	_model = model;
+	
+	setTexture("particleGrid0.png", 2, 2);
+	//flare.loadImage("flare_bw.png");
 	
 	PSetting setting1;
 	setting1.percent = 0.4;
@@ -369,11 +373,10 @@ void Particles::addPosition(int i, float x, float y, float z)
 /* Set texture
  _______________________________________________________________________ */
 
-void Particles::setTexture(ofImage newTexture, int cellsInRow, int cellsInCol) 
+void Particles::setTexture(string newTexture, int cellsInRow, int cellsInCol) 
 {
 	ofDisableArbTex();
-	//texture.loadImage(path);
-	texture = newTexture;
+	texture.loadImage(newTexture);
 	ofEnableArbTex();
 	
 	texW = texture.getWidth();

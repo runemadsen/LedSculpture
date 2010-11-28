@@ -1,8 +1,9 @@
-#pragma once
+#ifndef _BOX_
+#define _BOX_
 
 #include "ofMain.h"
-#include "Constants.h"
-#include "Particles.h"
+class Constants;
+class Particles;
 
 class Box
 {
@@ -10,11 +11,13 @@ class Box
 public:
 	
 	Box(int id, float x, float y, int boxSize);
+	
 	void draw();
 	
 	int getId() { return _id; };
 	
-	void update(bool state, ofColor color, int userid);
+	void update();
+	void updateState(bool state, ofColor color, int userid);
 	
 	bool getState() { return _state; }
 	int getUserId() { return _userid; }
@@ -39,3 +42,5 @@ private:
 	
 	Particles * _particles;
 };
+
+#endif
