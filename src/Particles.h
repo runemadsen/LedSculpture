@@ -15,7 +15,7 @@ public:
 	
 	Particles(Box * model);
 
-	void setTexture(string newTexture, int cellsInRow, int cellsInCol);
+	void setTexture(ofImage newTexture, int cellsInRow, int cellsInCol);
 	
 	void init();
 	void update();
@@ -31,6 +31,7 @@ private:
 	void spawn(int i);
 	
 	void setParticleColor(int i, float r, float g, float b, float a=0.0);
+	void setParticleAlpha(int i, float a);
 	void setParticlePos(int i, float px, float py, float pz=0.0);
 	void setParticleSize(int i, float particleDim);
 	void addPosition(int i, float x, float y, float z);

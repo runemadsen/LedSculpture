@@ -24,6 +24,11 @@ void testApp::setup()
 
 void testApp::update()
 {
+	if(newData != NULL)
+	{
+		createBoxesFromData();
+	}
+	
 	boxes->update();
 }
 
@@ -64,15 +69,31 @@ void testApp::parseJSON(string s)
 		cout  << "Failed to parse JSON\n" << reader.getFormatedErrorMessages();
 	}
 	
-	// See this page for all of the ways to access data in a Json::Value
-	// http://jsoncpp.sourceforge.net/class_json_1_1_value.html
-	Json::Value cells = root["cells"];
-	
-	for(int i = 0; i < cells.size(); i++)
+	newData = root["cells"];
+}
+
+void testApp::createBoxesFromData()
+{
+	for(int i = 0; i < newData.size(); i++)
 	{
-		Json::Value cell = cells[ofToString(i, 0)];		
-		boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
+		Json::Value cell = newData[i];		
+		
+		cout << ":::::::::::::: CELL " << endl;
+		cout << "Cell id: " << cell["cellid"].asInt() << endl;
+		cout << "Cell state: " << cell["state"].asInt() << endl;
+		cout << "Cell color red: " << getColorFromString(cell["color"].asString()).r << endl;
+		cout << "Cell color green: " << getColorFromString(cell["color"].asString()).g << endl;
+		cout << "Cell color blue: " << getColorFromString(cell["color"].asString()).b << endl;
+		cout << "Cell userid: " << cell["userid"].asInt() << endl;
+		
+		if (cell["state"].asInt() == 1) 
+		{
+			boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
+		}
+		
 	}
+	
+	newData = NULL;
 }
 
 ofColor testApp::getColorFromString(string color)
@@ -140,7 +161,7 @@ void testApp::keyPressed(int key)
 	{
 		httpUtils.addUrl(url);
 	}
-	else if(key >= '1' && key <= '9')
+	else if(key >= '0' && key <= '9')
 	{
 		Box * box = boxes->getBox(key - '0');
 		

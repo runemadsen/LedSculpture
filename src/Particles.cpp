@@ -8,9 +8,6 @@ Particles::Particles(Box * model)
 {	
 	_model = model;
 	
-	setTexture("particleGrid0.png", 2, 2);
-	//flare.loadImage("flare_bw.png");
-	
 	PSetting setting1;
 	setting1.percent = 1;
 	setting1.sizeMin = 10;
@@ -37,9 +34,19 @@ Particles::Particles(Box * model)
 /* Init
  _______________________________________________________________________ */
 
-void Particles::init() 
+void Particles::init()
 {			
+	cout << "Init" << endl;
+	
 	numParticles = 0;
+	
+	// load texture
+	ofImage img;
+	img.loadImage("particleGrid0.png");
+	setTexture(img, 2, 2);
+	
+	texW = texture.getWidth();
+	texH = texture.getHeight();
 	
 	// Setup the VBO
 	
@@ -66,6 +73,8 @@ void Particles::init()
 
 void Particles::update() 
 {	
+	//cout << "Update" << endl;
+	
 	if(_model->visible())	
 	{
 		if(numParticles < MAX_PARTICLES)
@@ -97,7 +106,8 @@ void Particles::update()
 		// fade by the life rate
 		life[i][0] -= life[i][1];
 		
-		setParticleColor(i, 1.0, 1.0, 1.0, life[i][0]);
+		//setParticleColor(i, 1.0, 1.0, 1.0, life[i][0]);
+		setParticleAlpha(i, life[i][0]);
 		
 		if(life[i][0] <= 0.0) 
 		{
@@ -114,6 +124,8 @@ void Particles::update()
 
 void Particles::spawn(int i) 
 {
+	//cout << "Spawn" << endl;
+	
 	float percent = 0.0;
 	float random = ofRandomuf();
 	
@@ -124,7 +136,12 @@ void Particles::spawn(int i)
 		if (random < percent) 
 		{
 			setParticleSize(i, ofRandom(settings[j].sizeMin, settings[j].sizeMax));
-			setParticleColor(i, 1, 1, 1, 1);
+			
+			//setParticleColor(i, 1, 1, 1, 1);
+			
+			ofColor c = _model->getColor();
+			
+			setParticleColor(i, (float) c.r / 255.0, (float) c.g / 255.0, (float) c.b / 255.0, 1);
 			
 			//int max = model->outline.size() - 1;
 			//ofPoint thePoint = model->outline[ofRandom(0, max)];
@@ -197,13 +214,7 @@ void Particles::spawn(int i)
 
 void Particles::render() 
 {		
-	/*if(model->drawing)
-	 {
-	 ofSetColor(0xFFFFFF);
-	 ofEnableAlphaBlending();
-	 flare.draw(model->getCurPos().x - (flare.width / 2), model->getCurPos().y - (flare.height / 2));
-	 ofDisableAlphaBlending();
-	 }*/
+	//cout << "Render" << endl;
 	
 	glEnable(GL_TEXTURE_2D);	// Tells OpenGL that we want ot draw a 2d teture
 	
@@ -328,6 +339,28 @@ void Particles::setParticleColor(int i, float r, float g, float b, float a)
 	color[(i*4)+3].a = a;
 }
 
+/* Set Particle Color
+ _______________________________________________________________________ */
+
+void Particles::setParticleAlpha(int i, float a) 
+{
+	if(i < 0) i = 0;
+	if(i > MAX_PARTICLES) i = MAX_PARTICLES;
+	
+	// Color 1
+	color[(i*4)+0].a = a;
+	
+	// Color 2
+	color[(i*4)+1].a = a;
+	
+	// Color 3
+	color[(i*4)+2].a = a;
+	
+	// Color 4
+	color[(i*4)+3].a = a;
+}
+
+
 /* Set Particle Position
  _______________________________________________________________________ */
 
@@ -397,13 +430,21 @@ void Particles::addPosition(int i, float x, float y, float z)
 	pos[(i*4)+3].z += z;
 }
 
+/* Getter / Setter
+ _______________________________________________________________________ */
+
+int Particles::getTotal()
+{
+	return numParticles;
+}
+
 /* Set texture
  _______________________________________________________________________ */
 
-void Particles::setTexture(string newTexture, int cellsInRow, int cellsInCol) 
+void Particles::setTexture(ofImage newTexture, int cellsInRow, int cellsInCol) 
 {
 	ofDisableArbTex();
-	texture.loadImage(newTexture);
+	texture = newTexture;
 	ofEnableArbTex();
 	
 	texW = texture.getWidth();
@@ -411,12 +452,4 @@ void Particles::setTexture(string newTexture, int cellsInRow, int cellsInCol)
 	
 	cellRows  = cellsInRow;
 	cellColls = cellsInCol; 
-}
-
-/* Getter / Setter
- _______________________________________________________________________ */
-
-int Particles::getTotal()
-{
-	return numParticles;
 }

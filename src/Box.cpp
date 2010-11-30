@@ -32,7 +32,6 @@ void Box::updateState(bool state, ofColor color, int userid)
 	// if first on, create particles
 	if(!_state && state && _particles == NULL && _partner != NULL)
 	{
-		cout << "Created particles \n";
 		_particles = new Particles(this);
 		_particles->init();
 	}
@@ -60,7 +59,6 @@ void Box::update()
 {
 	if(_particles != NULL)
 	{
-		cout << "Updating particles \n";
 		_particles->update();
 	}
 }
@@ -99,5 +97,13 @@ void Box::draw()
 
 void Box::setPartner(Box * partner)
 {	
-	_partner = partner;
+	if(partner != NULL)
+	{
+		_partner = partner;
+	}
+	else 
+	{
+		cout << "Partner was null in setPartner \n";
+	}
+
 }

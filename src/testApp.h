@@ -26,6 +26,7 @@ class testApp : public ofBaseApp
 		void newResponse(ofxHttpResponse & response);
 		void newError(string error);
 		void parseJSON(string s);
+		void createBoxesFromData();
 	
 		ofColor getColorFromString(string color);
 	
@@ -33,6 +34,7 @@ class testApp : public ofBaseApp
 	
 		Json::Value root;   // will contains the root value after parsing.
 		Json::Reader reader;
+		Json::Value newData;
 	
 		ofxHttpUtils httpUtils;
 		string url;

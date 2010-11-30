@@ -8,7 +8,7 @@ BoxesController::BoxesController(float x, float y)
 	_loc.set(x, y);
 	_boxSize = 50;
 	
-	_curId = 1;
+	_curId = 0;
 	
 	createBoxes();
 }
@@ -18,7 +18,7 @@ BoxesController::BoxesController(float x, float y)
 
 void BoxesController::createBoxes()
 {
-	// create left shape (id 1-16)
+	// create left shape (id 0-15)
 	int left[20] = {	0, 1, 1, 1, 0, 
 		1, 1, 1, 1, 1, 
 		1, 1, 1, 1, 1, 
@@ -27,7 +27,7 @@ void BoxesController::createBoxes()
 	
 	createShape(0, _boxSize, left, 20, 5);
 	
-	// create right shape (id 17-32)
+	// create right shape (id 16-31)
 	int right[20] = {	0, 1, 1, 1, 0, 
 		1, 1, 1, 1, 1, 
 		1, 1, 1, 1, 1, 
@@ -36,14 +36,14 @@ void BoxesController::createBoxes()
 	
 	createShape(_boxSize * 14, _boxSize, left, 20, 5);
 	
-	// create small box left (id 33)
+	// create small box left (id 32)
 	int leftSingle[1] = {1};
 	createShape(_boxSize * 5, _boxSize * 2.5, leftSingle, 1, 1);
 	
-	// create small box right (id 34)
+	// create small box right (id 33)
 	createShape(_boxSize * 13, _boxSize * 2.5, leftSingle, 1, 1);
 	
-	// create center shape (id 35-64)
+	// create center shape (id 34-63)
 	int center[42] = {	0, 0, 1, 1, 1, 0, 0,
 		0, 1, 1, 1, 1, 1, 0,
 		1, 1, 1, 1, 1, 1, 1, 
@@ -112,16 +112,23 @@ void BoxesController::createShape(int startX, int startY, int slots[], int slotl
 
 void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid)
 {
+	userid = DISABLED;
+	cout << "::::::::::: Update box called" << endl;
+	cout << "State: " << state << endl;
+	cout << "Color: " << "R: " << color.r << "G: " << color.g << "B: " << color.b << endl;
+	cout << "Userid: " << userid << endl;
+	
 	Box * box = getBox(boxid);
 	
 	if (box != NULL) 
 	{
-		if (box->getState() != state && state) 
+		if(box->getState() != state && state) 
 		{			
 			Box * partner = findBoxWithoutPatner();
-				
+			
+			cout << "Partner found id: " << partner->getId() << endl;
+			
 			box->setPartner(partner);
-			//partner->setPartner(box);
 		}
 		
 		box->updateState(state, color, userid);
@@ -136,10 +143,10 @@ void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid
  ________________________________________________________________ */
 
 Box * BoxesController::findBoxWithoutPatner()
-{
+{	
 	// create vector with ids
 	vector <int> ids;
-	for (int i = 35; i <= 64; i++) 
+	for (int i = 34; i <= 63; i++) 
 	{
 		ids.push_back(i);
 	}
@@ -172,32 +179,6 @@ Box * BoxesController::findBoxWithoutPatner()
 	}
 									
 	return NULL;
-	
-	
-	/*for(int i = 0; i < ids.size(); i++)
-	{
-		bool partnered = false;
-		
-		for (int j = 1; j <= 32; j++) 
-		{
-			Box * box = getBox(j);
-			
-			if(box->getPartner() != NULL)
-			{
-				if(box->getPartner()->getId() == i)
-				{
-					partnered = true;
-				}
-			}
-		}
-		
-		if(!partnered)
-		{
-			return getBox(i);
-		}
-	}
-	
-	return NULL;*/
 }
 
 /*	Getter / Setter
@@ -232,6 +213,8 @@ Box * BoxesController::getBox(int boxid)
 			return _boxes[i];
 		}
 	}
+	
+	cout << "Returned null in getbox: " << boxid << endl;
 	
 	return NULL;
 }

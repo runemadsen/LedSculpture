@@ -27,6 +27,8 @@ public:
 	bool visible() { return _state; }
 	ofPoint getLoc() { return _loc; }
 	int getSize() { return _boxSize; }
+	
+	ofImage * getTexture() { return _texture; }
 
 	void setPartner(Box * partner);
 	
@@ -43,6 +45,8 @@ private:
 	Box * _partner;
 	
 	Particles * _particles;
+	
+	ofImage * _texture;
 };
 
 #endif
