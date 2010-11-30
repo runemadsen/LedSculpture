@@ -12,18 +12,18 @@ Particles::Particles(Box * model)
 	//flare.loadImage("flare_bw.png");
 	
 	PSetting setting1;
-	setting1.percent = 0.4;
-	setting1.sizeMin = 5;
-	setting1.sizeMax = 10;
+	setting1.percent = 1;
+	setting1.sizeMin = 10;
+	setting1.sizeMax = 40;
 	setting1.dirMin = 0.5;
 	setting1.dirMax = 1;
 	//setting1.dirMin = 0.2;
 	//setting1.dirMax = 0.9;
 	setting1.lifeMin = 0.15;
-	setting1.lifeMax = 0.25;
+	setting1.lifeMax = 0.55;
 	settings.push_back(setting1);
 	
-	PSetting setting2;
+	/*PSetting setting2;
 	setting2.percent = 0.6;
 	setting1.sizeMin = 5;
 	setting1.sizeMax = 10;
@@ -31,7 +31,7 @@ Particles::Particles(Box * model)
 	setting2.dirMax = 3;
 	setting2.lifeMin = 0.15;
 	setting2.lifeMax = 0.25;
-	settings.push_back(setting2);
+	settings.push_back(setting2);*/
 }
 
 /* Init
@@ -130,6 +130,33 @@ void Particles::spawn(int i)
 			//ofPoint thePoint = model->outline[ofRandom(0, max)];
 			
 			ofPoint thePoint = _model->getLoc();
+			
+			int side = ofRandom(1, 4);
+			float ran = ofRandomuf();
+			
+			switch (side) 
+			{
+				// left
+				case 1:
+					thePoint.y += (float) _model->getSize() * ran;
+					break;
+				// top
+				case 2:
+					thePoint.x += (float) _model->getSize() * ran;
+					break;
+				// right
+				case 3:
+					thePoint.x += _model->getSize();
+					thePoint.y += (float) _model->getSize() * ran;
+					break;
+				// bottom
+				case 4:
+					thePoint.x += (float) _model->getSize() * ran;
+					thePoint.y += _model->getSize();
+					break;
+				default:
+					break;
+			} 
 			
 			// choose where the particle goes
 			ofxVec2f direction;

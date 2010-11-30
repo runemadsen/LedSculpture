@@ -15,4 +15,4 @@
 /* Particles
  _________________________________________________________________ */
 
-#define MAX_PARTICLES 1000
+#define MAX_PARTICLES 100

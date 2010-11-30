@@ -18,6 +18,8 @@ Box::Box(int id, float x, float y, int boxSize)
 	_color.g = 0;
 	_color.b = 0;
 	
+	_userid = DISABLED;
+	
 	_partner = NULL;
 	_particles = NULL;
 }
@@ -28,7 +30,7 @@ Box::Box(int id, float x, float y, int boxSize)
 void Box::updateState(bool state, ofColor color, int userid)
 {
 	// if first on, create particles
-	if(!_state && state && _particles == NULL)
+	if(!_state && state && _particles == NULL && _partner != NULL)
 	{
 		cout << "Created particles \n";
 		_particles = new Particles(this);
@@ -70,18 +72,26 @@ void Box::draw()
 {		
 	ofFill();
 	
-	if(_particles != NULL)
+	if(_state)
 	{
-		cout << "Rendering particles \n";
-		_particles->render();
+		ofSetColor(_color.r, _color.g, _color.b);
+		ofFill();
+		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+		ofNoFill();
+		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+	}
+	else 
+	{
+		ofSetColor(0, 0, 0);
+		ofNoFill();
+		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
 	}
 	
-	if(_state)
+	if(_particles != NULL)
+	{
 		ofSetColor(_color.r, _color.g, _color.b);
-	else 
-		ofSetColor(0, 0, 0);
-
-	ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+		_particles->render();
+	}
 }
 
 /* Getter / Setter

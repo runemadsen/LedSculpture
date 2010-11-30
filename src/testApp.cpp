@@ -7,7 +7,7 @@
 
 void testApp::setup()
 {
-	ofSetFrameRate(12);
+	ofSetFrameRate(60);
 	ofBackground(40, 40, 40);
 	
 	ofEnableSmoothing();
@@ -32,6 +32,7 @@ void testApp::update()
 
 void testApp::draw()
 {
+	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 10);
 	ofSetColor(0, 0, 0);
 	boxes->draw();
 }

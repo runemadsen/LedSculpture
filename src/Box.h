@@ -2,6 +2,7 @@
 #define _BOX_
 
 #include "ofMain.h"
+#include "Constants.h"
 class Constants;
 class Particles;
 
@@ -25,6 +26,7 @@ public:
 	Box * getPartner() { return _partner; }
 	bool visible() { return _state; }
 	ofPoint getLoc() { return _loc; }
+	int getSize() { return _boxSize; }
 
 	void setPartner(Box * partner);
 	

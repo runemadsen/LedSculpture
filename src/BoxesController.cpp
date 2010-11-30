@@ -6,7 +6,7 @@ ________________________________________________________________ */
 BoxesController::BoxesController(float x, float y)
 {
 	_loc.set(x, y);
-	_boxSize = 40;
+	_boxSize = 50;
 	
 	_curId = 1;
 	
@@ -137,7 +137,44 @@ void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid
 
 Box * BoxesController::findBoxWithoutPatner()
 {
-	for(int i = 35; i <= 64; i++)
+	// create vector with ids
+	vector <int> ids;
+	for (int i = 35; i <= 64; i++) 
+	{
+		ids.push_back(i);
+	}
+	
+	// loop though all ids and grab random one each pass
+	while (ids.size() > 0) 
+	{
+		bool partnered = false;
+		int ranIndex = ofRandom(0, ids.size());
+		
+		for (int j = 1; j <= 32; j++) 
+		{
+			Box * box = getBox(j);
+			
+			if(box->getPartner() != NULL)
+			{
+				if(box->getPartner()->getId() == ids[ranIndex])
+				{
+					partnered = true;
+				}
+			}
+		}
+		
+		if(!partnered)
+		{
+			return getBox(ids[ranIndex]);
+		}
+									
+		ids.erase(ids.begin() + ranIndex);
+	}
+									
+	return NULL;
+	
+	
+	/*for(int i = 0; i < ids.size(); i++)
 	{
 		bool partnered = false;
 		
@@ -160,7 +197,7 @@ Box * BoxesController::findBoxWithoutPatner()
 		}
 	}
 	
-	return NULL;
+	return NULL;*/
 }
 
 /*	Getter / Setter
