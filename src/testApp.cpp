@@ -17,6 +17,11 @@ void testApp::setup()
 	url = "http://versionize.com/ledsculpture/displaycells.php";
 	ofAddListener(httpUtils.newResponseEvent, this, &testApp::newResponse);
 	httpUtils.start();
+	
+	if(serial.setup())
+	{
+		printf("serial is setup!");
+	}
 }
 
 /* Update
@@ -41,6 +46,43 @@ void testApp::draw()
 	ofSetColor(0, 0, 0);
 	boxes->draw();
 }
+
+/* Key Events
+ _________________________________________________________________ */
+
+void testApp::keyPressed(int key)
+{
+	if(key == 'x')
+		boxes->setProperty("x", -1);
+	else if(key == 'X')
+		boxes->setProperty("x", 1);
+	else if(key == 'y')
+		boxes->setProperty("y", -1);
+	else if(key == 'Y')
+		boxes->setProperty("y", -1);
+	else if(key == 's')
+		boxes->setProperty("size", -1);
+	else if(key == 'S')
+		boxes->setProperty("size", 1);	
+	else if(key == 'l')
+	{
+		httpUtils.addUrl(url);
+	}
+	else if(key >= '0' && key <= '9')
+	{
+		Box * box = boxes->getBox(key - '0');
+		
+		boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
+	}
+}
+
+void testApp::keyReleased(int key){}
+void testApp::mouseMoved(int x, int y ){}
+void testApp::mouseDragged(int x, int y, int button){}
+void testApp::mousePressed(int x, int y, int button){}
+void testApp::mouseReleased(int x, int y, int button){}
+void testApp::windowResized(int w, int h){}
+
 
 /* HTTP Events
  _________________________________________________________________ */
@@ -74,23 +116,40 @@ void testApp::parseJSON(string s)
 
 void testApp::createBoxesFromData()
 {
+	// start send to arduino
+	//bool byteWritten = mySerial.writeByte("*");
+	//if(!byteWritten)	cout << "* was not written to serial port \n";
+	
 	for(int i = 0; i < newData.size(); i++)
 	{
 		Json::Value cell = newData[i];		
 		
+		int id = cell["cellid"].asInt();
+		int state = cell["state"].asInt();
+		ofColor color = getColorFromString(cell["color"].asString());
+		int userid = cell["userid"].asInt()
+		
 		cout << ":::::::::::::: CELL " << endl;
-		cout << "Cell id: " << cell["cellid"].asInt() << endl;
-		cout << "Cell state: " << cell["state"].asInt() << endl;
-		cout << "Cell color red: " << getColorFromString(cell["color"].asString()).r << endl;
-		cout << "Cell color green: " << getColorFromString(cell["color"].asString()).g << endl;
-		cout << "Cell color blue: " << getColorFromString(cell["color"].asString()).b << endl;
-		cout << "Cell userid: " << cell["userid"].asInt() << endl;
+		cout << "Cell id: " << id << endl;
+		cout << "Cell state: " << state << endl;
+		cout << "Cell color red: " << color.r << endl;
+		cout << "Cell color green: " << color.g << endl;
+		cout << "Cell color blue: " << color.b << endl;
+		cout << "Cell userid: " << userid << endl;
 		
-		if (cell["state"].asInt() == 1) 
-		{
-			boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
-		}
+		// send id
+		//byteWritten = mySerial.writeByte(id);
+		//if(!byteWritten)	cout << "Id was not written to serial port \n";
 		
+		// send state
+		//byteWritten = mySerial.writeByte(state);
+		//if(!byteWritten)	cout << "State was not written to serial port \n";
+		
+		// send color (must convert to number)
+		//byteWritten = mySerial.writeByte(color);
+		//if(!byteWritten)	cout << "Color was not written to serial port \n";
+		
+		boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
 	}
 	
 	newData = NULL;
@@ -139,40 +198,4 @@ ofColor testApp::getColorFromString(string color)
 	
 	return c;
 }
-
-/* Key Events
- _________________________________________________________________ */
-
-void testApp::keyPressed(int key)
-{
-	if(key == 'x')
-		boxes->setProperty("x", -1);
-	else if(key == 'X')
-		boxes->setProperty("x", 1);
-	else if(key == 'y')
-		boxes->setProperty("y", -1);
-	else if(key == 'Y')
-		boxes->setProperty("y", -1);
-	else if(key == 's')
-		boxes->setProperty("size", -1);
-	else if(key == 'S')
-		boxes->setProperty("size", 1);	
-	else if(key == 'l')
-	{
-		httpUtils.addUrl(url);
-	}
-	else if(key >= '0' && key <= '9')
-	{
-		Box * box = boxes->getBox(key - '0');
-		
-		boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
-	}
-}
-
-void testApp::keyReleased(int key){}
-void testApp::mouseMoved(int x, int y ){}
-void testApp::mouseDragged(int x, int y, int button){}
-void testApp::mousePressed(int x, int y, int button){}
-void testApp::mouseReleased(int x, int y, int button){}
-void testApp::windowResized(int w, int h){}
 

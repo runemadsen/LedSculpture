@@ -38,6 +38,8 @@ class testApp : public ofBaseApp
 	
 		ofxHttpUtils httpUtils;
 		string url;
+	
+		ofSerial serial;
 };
 
 
