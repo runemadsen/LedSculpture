@@ -127,7 +127,7 @@ void testApp::createBoxesFromData()
 		int id = cell["cellid"].asInt();
 		int state = cell["state"].asInt();
 		ofColor color = getColorFromString(cell["color"].asString());
-		int userid = cell["userid"].asInt()
+		int userid = cell["userid"].asInt();
 		
 		cout << ":::::::::::::: CELL " << endl;
 		cout << "Cell id: " << id << endl;

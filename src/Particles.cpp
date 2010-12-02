@@ -135,45 +135,43 @@ void Particles::spawn(int i)
 		
 		if (random < percent) 
 		{
-			setParticleSize(i, ofRandom(settings[j].sizeMin, settings[j].sizeMax));
+			// size
+			float size = ofRandom(settings[j].sizeMin, settings[j].sizeMax);
+			setParticleSize(i, size);
 			
-			//setParticleColor(i, 1, 1, 1, 1);
-			
+			// color
 			ofColor c = _model->getColor();
-			
 			setParticleColor(i, (float) c.r / 255.0, (float) c.g / 255.0, (float) c.b / 255.0, 1);
-			
-			//int max = model->outline.size() - 1;
-			//ofPoint thePoint = model->outline[ofRandom(0, max)];
 			
 			ofPoint thePoint = _model->getLoc();
 			
-			int side = ofRandom(1, 4);
+			// adjust for image width
+			float margin = (size / 2);
+			thePoint.x -= margin;
+			thePoint.y -= margin;
+			
+			int side = ofRandom(0, 4);
 			float ran = ofRandomuf();
 			
-			switch (side) 
+			
+			if(side < 1)
 			{
-				// left
-				case 1:
-					thePoint.y += (float) _model->getSize() * ran;
-					break;
-				// top
-				case 2:
-					thePoint.x += (float) _model->getSize() * ran;
-					break;
-				// right
-				case 3:
-					thePoint.x += _model->getSize();
-					thePoint.y += (float) _model->getSize() * ran;
-					break;
-				// bottom
-				case 4:
-					thePoint.x += (float) _model->getSize() * ran;
-					thePoint.y += _model->getSize();
-					break;
-				default:
-					break;
-			} 
+				thePoint.y += (float) _model->getSize() * ran;
+			}
+			else if(side < 2)
+			{
+				thePoint.x += (float) _model->getSize() * ran;
+			}
+			else if(side < 3)
+			{
+				thePoint.x += _model->getSize();
+				thePoint.y += (float) _model->getSize() * ran;
+			}
+			else if(side < 4)
+			{
+				thePoint.x += (float) _model->getSize() * ran;
+				thePoint.y += _model->getSize();
+			}
 			
 			// choose where the particle goes
 			ofxVec2f direction;

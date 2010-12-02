@@ -73,8 +73,8 @@ void Box::draw()
 	if(_state)
 	{
 		ofSetColor(_color.r, _color.g, _color.b);
-		ofFill();
-		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+		//ofFill();
+		//ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
 		ofNoFill();
 		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
 	}
