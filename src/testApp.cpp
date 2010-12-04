@@ -22,6 +22,9 @@ void testApp::setup()
 	{
 		printf("serial is setup!");
 	}
+	
+	lastReceived = ofGetElapsedTimeMillis();
+	enableHTTP = false;
 }
 
 /* Update
@@ -35,6 +38,14 @@ void testApp::update()
 	}
 	
 	boxes->update();
+	
+	// check if call didn't get through
+	if(enableHTTP && ofGetElapsedTimeMillis() - lastReceived > HTTP_TIMEOUT)
+	{
+		lastReceived = ofGetElapsedTimeMillis();
+		
+		makeHTTPCall();
+	}
 }
 
 /* Draw
@@ -53,26 +64,45 @@ void testApp::draw()
 void testApp::keyPressed(int key)
 {
 	if(key == 'x')
-		boxes->setProperty("x", -1);
-	else if(key == 'X')
-		boxes->setProperty("x", 1);
-	else if(key == 'y')
-		boxes->setProperty("y", -1);
-	else if(key == 'Y')
-		boxes->setProperty("y", -1);
-	else if(key == 's')
-		boxes->setProperty("size", -1);
-	else if(key == 'S')
-		boxes->setProperty("size", 1);	
-	else if(key == 'l')
 	{
-		httpUtils.addUrl(url);
+		boxes->setProperty("x", -1);
+	}
+	else if(key == 'X')
+	{
+		boxes->setProperty("x", 1);
+	}
+	else if(key == 'y')
+	{
+		boxes->setProperty("y", -1);
+	}
+	else if(key == 'Y')
+	{
+		boxes->setProperty("y", -1);
+	}
+	else if(key == 's')
+	{
+		boxes->setProperty("size", -1);
+	}
+	else if(key == 'S')
+	{
+		boxes->setProperty("size", 1);	
 	}
 	else if(key >= '0' && key <= '9')
 	{
 		Box * box = boxes->getBox(key - '0');
 		
 		boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
+	}
+	else if(key == ' ')
+	{
+		enableHTTP = !enableHTTP;
+		
+		if(enableHTTP)
+		{
+			lastReceived = ofGetElapsedTimeMillis();
+			
+			makeHTTPCall();
+		}
 	}
 }
 
@@ -83,13 +113,29 @@ void testApp::mousePressed(int x, int y, int button){}
 void testApp::mouseReleased(int x, int y, int button){}
 void testApp::windowResized(int w, int h){}
 
+void testApp::makeHTTPCall()
+{
+	cout << "HTTP Call requested" << endl;
+	
+	httpUtils.addUrl(url);
+}
+
 
 /* HTTP Events
  _________________________________________________________________ */
 
 void testApp::newResponse(ofxHttpResponse & response)
 {
+	lastReceived = ofGetElapsedTimeMillis();
+	
 	parseJSON(response.responseBody);
+	
+	/*if(enableHTTP)
+	{
+		makeHTTPCall();
+	}*/
+	
+	cout << "HTTP Call received" << endl;
 }
 
 void testApp::newError(string error)
@@ -102,7 +148,7 @@ void testApp::newError(string error)
 
 void testApp::parseJSON(string s) 
 {
-	cout << "Parsing JSON" << endl;
+	cout << "HTTP Call parsing" << endl;
 	
 	bool parsingSuccessful = reader.parse(s, root);
 	
@@ -113,6 +159,9 @@ void testApp::parseJSON(string s)
 	
 	newData = root["cells"];
 }
+
+/* Create boxes from data
+ _________________________________________________________________ */
 
 void testApp::createBoxesFromData()
 {
@@ -129,13 +178,13 @@ void testApp::createBoxesFromData()
 		ofColor color = getColorFromString(cell["color"].asString());
 		int userid = cell["userid"].asInt();
 		
-		cout << ":::::::::::::: CELL " << endl;
+		/*cout << ":::::::::::::: CELL " << endl;
 		cout << "Cell id: " << id << endl;
 		cout << "Cell state: " << state << endl;
 		cout << "Cell color red: " << color.r << endl;
 		cout << "Cell color green: " << color.g << endl;
 		cout << "Cell color blue: " << color.b << endl;
-		cout << "Cell userid: " << userid << endl;
+		cout << "Cell userid: " << userid << endl;*/
 		
 		// send id
 		//byteWritten = mySerial.writeByte(id);
@@ -154,6 +203,9 @@ void testApp::createBoxesFromData()
 	
 	newData = NULL;
 }
+
+/* get color object from string name
+ _________________________________________________________________ */
 
 ofColor testApp::getColorFromString(string color)
 {

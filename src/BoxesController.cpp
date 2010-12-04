@@ -113,10 +113,11 @@ void BoxesController::createShape(int startX, int startY, int slots[], int slotl
 void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid)
 {
 	userid = DISABLED;
-	cout << "::::::::::: Update box called" << endl;
+	
+	/*cout << "::::::::::: Update box called" << endl;
 	cout << "State: " << state << endl;
 	cout << "Color: " << "R: " << color.r << "G: " << color.g << "B: " << color.b << endl;
-	cout << "Userid: " << userid << endl;
+	cout << "Userid: " << userid << endl;*/
 	
 	Box * box = getBox(boxid);
 	

@@ -1,7 +1,6 @@
 #ifndef _TEST_APP
 #define _TEST_APP
 
-
 #include "ofMain.h"
 #include "ofxHttpUtils.h"
 #include "json/json.h"
@@ -23,6 +22,7 @@ class testApp : public ofBaseApp
 		void mouseReleased(int x, int y, int button);
 		void windowResized(int w, int h);
 	
+		void makeHTTPCall();
 		void newResponse(ofxHttpResponse & response);
 		void newError(string error);
 		void parseJSON(string s);
@@ -40,6 +40,10 @@ class testApp : public ofBaseApp
 		string url;
 	
 		ofSerial serial;
+	
+		bool enableHTTP;
+	
+		long lastReceived; 
 };
 
 
