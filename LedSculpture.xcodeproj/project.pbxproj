@@ -11,6 +11,7 @@
 		1FD4F860118A348B0030E69D /* json_value.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4F85B118A348B0030E69D /* json_value.cpp */; };
 		1FD4F861118A348B0030E69D /* json_writer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 1FD4F85D118A348B0030E69D /* json_writer.cpp */; };
 		A54013C5128CBF83001E9EEB /* Box.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A54013C4128CBF83001E9EEB /* Box.cpp */; };
+		A5728DAB12AAB99A00E1CD2E /* App.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5728DA912AAB99A00E1CD2E /* App.cpp */; };
 		A5848EA91293446F00C84ACD /* BoxesController.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A5848EA81293446F00C84ACD /* BoxesController.cpp */; };
 		A599A6FC12A1A93100448578 /* Particles.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A599A6FB12A1A93100448578 /* Particles.cpp */; };
 		A599A70F12A1A99500448578 /* ofxMatrix3x3.cpp in Sources */ = {isa = PBXBuildFile; fileRef = A599A70212A1A99500448578 /* ofxMatrix3x3.cpp */; };
@@ -96,6 +97,8 @@
 		A54013C3128CBF83001E9EEB /* Box.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Box.h; sourceTree = "<group>"; };
 		A54013C4128CBF83001E9EEB /* Box.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Box.cpp; sourceTree = "<group>"; };
 		A5427253128CC1C600D260E3 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		A5728DA912AAB99A00E1CD2E /* App.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = App.cpp; sourceTree = "<group>"; };
+		A5728DAA12AAB99A00E1CD2E /* App.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = App.h; sourceTree = "<group>"; };
 		A5848EA71293446F00C84ACD /* BoxesController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoxesController.h; sourceTree = "<group>"; };
 		A5848EA81293446F00C84ACD /* BoxesController.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = BoxesController.cpp; sourceTree = "<group>"; };
 		A599A6FA12A1A93100448578 /* Particles.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Particles.h; sourceTree = "<group>"; };
@@ -451,6 +454,8 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
+				A5728DA912AAB99A00E1CD2E /* App.cpp */,
+				A5728DAA12AAB99A00E1CD2E /* App.h */,
 				1FD4F856118A348B0030E69D /* lib_json */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
@@ -641,6 +646,7 @@
 				A599A70F12A1A99500448578 /* ofxMatrix3x3.cpp in Sources */,
 				A599A71012A1A99500448578 /* ofxMatrix4x4.cpp in Sources */,
 				A599A71112A1A99500448578 /* ofxQuaternion.cpp in Sources */,
+				A5728DAB12AAB99A00E1CD2E /* App.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

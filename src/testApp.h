@@ -6,6 +6,7 @@
 #include "json/json.h"
 #include "Constants.h"
 #include "BoxesController.h"
+#include "App.h"
 
 class testApp : public ofBaseApp
 {

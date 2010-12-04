@@ -70,19 +70,22 @@ void Box::draw()
 {		
 	ofFill();
 	
-	if(_state)
+	if(App::getInstance()->testMode)
 	{
-		ofSetColor(_color.r, _color.g, _color.b);
-		//ofFill();
-		//ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
-		ofNoFill();
-		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
-	}
-	else 
-	{
-		ofSetColor(0, 0, 0);
-		ofNoFill();
-		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+		if(_state)
+		{
+			ofSetColor(_color.r, _color.g, _color.b);
+			//ofFill();
+			//ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+			ofNoFill();
+			ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+		}
+		else 
+		{
+			ofSetColor(255, 255, 255);
+			ofNoFill();
+			ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+		}
 	}
 	
 	if(_particles != NULL)

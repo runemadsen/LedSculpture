@@ -8,7 +8,7 @@
 void testApp::setup()
 {
 	ofSetFrameRate(60);
-	ofBackground(40, 40, 40);
+	ofBackground(0, 0, 0);
 	
 	ofEnableSmoothing();
 		
@@ -53,6 +53,7 @@ void testApp::update()
 
 void testApp::draw()
 {
+	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 10);
 	ofSetColor(0, 0, 0);
 	boxes->draw();
@@ -103,6 +104,10 @@ void testApp::keyPressed(int key)
 			
 			makeHTTPCall();
 		}
+	}
+	else if(key == 't')
+	{
+		App::getInstance()->testMode = !App::getInstance()->testMode;
 	}
 }
 

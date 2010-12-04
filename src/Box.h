@@ -3,6 +3,7 @@
 
 #include "ofMain.h"
 #include "Constants.h"
+#include "App.h"
 class Constants;
 class Particles;
 
