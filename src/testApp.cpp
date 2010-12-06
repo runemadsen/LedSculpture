@@ -12,13 +12,15 @@ void testApp::setup()
 	
 	ofEnableSmoothing();
 		
-	boxes = new BoxesController(20, 100);
+	boxes = new BoxesController();
 	
 	url = "http://versionize.com/ledsculpture/displaycells.php";
 	ofAddListener(httpUtils.newResponseEvent, this, &testApp::newResponse);
 	httpUtils.start();
 	
-	if(serial.setup())
+	serial.enumerateDevices();
+	
+	if(serial.setup("/dev/tty.usbserial-A800euZ6", 9600))
 	{
 		printf("serial is setup!");
 	}
@@ -35,6 +37,8 @@ void testApp::update()
 	if(newData != NULL)
 	{
 		createBoxesFromData();
+		
+		//sendToArduino();
 	}
 	
 	boxes->update();
@@ -67,6 +71,14 @@ void testApp::keyPressed(int key)
 	if(key == 'x')
 	{
 		boxes->setProperty("x", -1);
+	}
+	else if(key == 'T')
+	{
+		sendToArduino();
+	}
+	else if(key == 'p')
+	{
+		boxes->printVars();
 	}
 	else if(key == 'X')
 	{
@@ -170,10 +182,6 @@ void testApp::parseJSON(string s)
 
 void testApp::createBoxesFromData()
 {
-	// start send to arduino
-	//bool byteWritten = mySerial.writeByte("*");
-	//if(!byteWritten)	cout << "* was not written to serial port \n";
-	
 	for(int i = 0; i < newData.size(); i++)
 	{
 		Json::Value cell = newData[i];		
@@ -191,22 +199,60 @@ void testApp::createBoxesFromData()
 		cout << "Cell color blue: " << color.b << endl;
 		cout << "Cell userid: " << userid << endl;*/
 		
-		// send id
-		//byteWritten = mySerial.writeByte(id);
-		//if(!byteWritten)	cout << "Id was not written to serial port \n";
-		
-		// send state
-		//byteWritten = mySerial.writeByte(state);
-		//if(!byteWritten)	cout << "State was not written to serial port \n";
-		
-		// send color (must convert to number)
-		//byteWritten = mySerial.writeByte(color);
-		//if(!byteWritten)	cout << "Color was not written to serial port \n";
-		
 		boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
 	}
 	
 	newData = NULL;
+}
+
+/* Serial communication
+ _________________________________________________________________ */
+
+void testApp::sendToArduino()
+{
+	int order[64] = { 
+		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
+		32, 34, 35, 36, 37, 38, 39, 40, 41, 42, 43, 44, 45, 46, 47, 48, 49, 50,
+		51, 52, 53, 54, 55, 56, 57, 58, 59, 60, 61, 62, 63, 33, 16, 17, 18, 19, 20, 21,
+		22, 23, 24, 25, 26, 27, 28, 29, 30, 31
+	};
+	
+	cout << "Sending Serial: \n";
+	
+	// start send to arduino
+	bool byteWritten = serial.writeByte('*');
+	if(!byteWritten)	cout << "* was not written to serial port \n";
+	else				cout << "*";
+
+	
+	for (int i = 0; i < 64; i++) 
+	{
+		sendBoxToArduino(order[i]);
+	}
+	
+	cout << "\n";
+}
+
+void testApp::sendBoxToArduino(int boxid)
+{
+	Box * box = boxes->getBox(boxid);
+	
+	// send id
+	//bool byteWritten = serial.writeByte(box->getId());
+	//if(!byteWritten)	cout << "Id was not written to serial port \n";
+	
+	// send state
+	bool byteWritten = serial.writeByte(box->getState());
+	if(!byteWritten)	cout << "State was not written to serial port \n";
+	else				cout << box->getState();
+
+	
+	// send color (must convert to number)
+	byteWritten = serial.writeByte(getIntFromColor(box->getColor()));
+	if(!byteWritten)	cout << "Color was not written to serial port \n";
+	else				cout << getIntFromColor(box->getColor());
+	
+	cout << ",";
 }
 
 /* get color object from string name
@@ -254,5 +300,54 @@ ofColor testApp::getColorFromString(string color)
 	}
 	
 	return c;
+}
+
+int testApp::getIntFromColor(ofColor c)
+{
+	// red
+	if(c.r == 255 && c.g == 0 && c.b == 0)
+	{
+		return 0;
+	}
+	// green
+	else if(c.r == 0 && c.g == 104 && c.b == 55)
+	{
+		return 1;
+	}
+	// blue
+	else if(c.r == 46 && c.g == 49 && c.b == 146)
+	{
+		return 2;
+	}
+	// yellow
+	else if(c.r == 252 && c.g == 238 && c.b == 33)
+	{
+		return 3;
+	}
+	// purple
+	else if(c.r == 102 && c.g == 45 && c.b == 145)
+	{
+		return 4;
+	}
+	// cyan
+	else if(c.r == 41 && c.g == 171 && c.b == 226)
+	{
+		return 5;
+	}
+	// pink
+	else if(c.r == 255 && c.g == 0 && c.b == 255)
+	{
+		return 6;
+	}
+	// orange
+	else if(c.r == 251 && c.g == 176 && c.b == 59)
+	{
+		return 7;
+	}
+	// white
+	else 
+	{
+		return DISABLED;
+	}
 }
 

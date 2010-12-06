@@ -3,9 +3,9 @@
 /*	Constructor
 ________________________________________________________________ */
 
-BoxesController::BoxesController(float x, float y)
+BoxesController::BoxesController()
 {
-	_loc.set(x, y);
+	_loc.set(0, 0);
 	_boxSize = 50;
 	
 	_curId = 0;
@@ -184,6 +184,13 @@ Box * BoxesController::findBoxWithoutPatner()
 
 /*	Getter / Setter
  ________________________________________________________________ */
+
+void BoxesController::printVars()
+{
+	cout << "::::::::::::: Printing variables: \n";
+	cout << "_loc.set(" << _loc.x << ", " << _loc.y << ");\n";
+	cout << "_boxSize = " << _boxSize << ";";
+}
 
 void BoxesController::setProperty(string p, float add)
 {

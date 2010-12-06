@@ -9,7 +9,7 @@ class BoxesController
 	
 public:
 	
-	BoxesController(float x, float y);
+	BoxesController();
 	
 	void update();
 	void draw();
@@ -18,6 +18,8 @@ public:
 	Box * getBox(int boxid);
 	
 	void updateBox(int boxid, bool state, ofColor color, int userid);
+	
+	void printVars();
 	
 	
 private:
