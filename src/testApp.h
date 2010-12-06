@@ -29,11 +29,11 @@ class testApp : public ofBaseApp
 		void parseJSON(string s);
 		void createBoxesFromData();
 	
-		void sendToArduino();
 		void sendBoxToArduino(int boxid);
 		
 		ofColor getColorFromString(string color);
 		int getIntFromColor(ofColor c);
+		int getIDToSend(int boxid);
 
 	
 		BoxesController * boxes;

@@ -17,7 +17,7 @@ public:
 	
 	Box * getBox(int boxid);
 	
-	void updateBox(int boxid, bool state, ofColor color, int userid);
+	bool updateBox(int boxid, bool state, ofColor color, int userid);
 	
 	void printVars();
 	

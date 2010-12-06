@@ -50,6 +50,17 @@ void testApp::update()
 		
 		makeHTTPCall();
 	}
+	
+	// check serial response
+	if (serial.available() > 0)
+	{
+		while(serial.available() > 0)
+		{
+			cout << serial.readByte();
+		}
+		
+		cout << "\n";
+	}
 }
 
 /* Draw
@@ -72,9 +83,22 @@ void testApp::keyPressed(int key)
 	{
 		boxes->setProperty("x", -1);
 	}
-	else if(key == 'T')
+	else if(key == 'Y')
 	{
-		sendToArduino();
+		// send test
+		cout << "Sending test \n";
+		
+		bool byteWritten = serial.writeByte('y');
+		if(!byteWritten)	cout << "y was not written to serial port \n";
+		
+		byteWritten = serial.writeByte('y');
+		if(!byteWritten)	cout << "y was not written to serial port \n";
+		
+		byteWritten = serial.writeByte('y');
+		if(!byteWritten)	cout << "y was not written to serial port \n";
+		
+		byteWritten = serial.writeByte('y');
+		if(!byteWritten)	cout << "y was not written to serial port \n";
 	}
 	else if(key == 'p')
 	{
@@ -104,7 +128,12 @@ void testApp::keyPressed(int key)
 	{
 		Box * box = boxes->getBox(key - '0');
 		
-		boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
+		bool updated = boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
+		
+		if(updated)
+		{
+			sendBoxToArduino(key - '0');
+		}
 	}
 	else if(key == ' ')
 	{
@@ -191,15 +220,12 @@ void testApp::createBoxesFromData()
 		ofColor color = getColorFromString(cell["color"].asString());
 		int userid = cell["userid"].asInt();
 		
-		/*cout << ":::::::::::::: CELL " << endl;
-		cout << "Cell id: " << id << endl;
-		cout << "Cell state: " << state << endl;
-		cout << "Cell color red: " << color.r << endl;
-		cout << "Cell color green: " << color.g << endl;
-		cout << "Cell color blue: " << color.b << endl;
-		cout << "Cell userid: " << userid << endl;*/
+		bool updated = boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
 		
-		boxes->updateBox(cell["cellid"].asInt(), cell["state"].asInt(), getColorFromString(cell["color"].asString()), cell["userid"].asInt());
+		if(updated)
+		{
+			sendBoxToArduino(id);
+		}
 	}
 	
 	newData = NULL;
@@ -208,7 +234,33 @@ void testApp::createBoxesFromData()
 /* Serial communication
  _________________________________________________________________ */
 
-void testApp::sendToArduino()
+void testApp::sendBoxToArduino(int boxid)
+{
+	Box * box = boxes->getBox(boxid);
+	int idToSend = getIDToSend(boxid);
+	
+	// start send to arduino
+	bool byteWritten = serial.writeByte('*');
+	if(!byteWritten)	cout << "* was not written to serial port \n";
+	else				cout << "*";	
+	
+	// send id
+	byteWritten = serial.writeByte(idToSend);
+	if(!byteWritten)	cout << "Id was not written to serial port \n";
+	else				cout << idToSend;
+	
+	// send state
+	byteWritten = serial.writeByte(box->getState());
+	if(!byteWritten)	cout << "State was not written to serial port \n";
+	else				cout << box->getState();
+	
+	// send color (must convert to number)
+	byteWritten = serial.writeByte(getIntFromColor(box->getColor()));
+	if(!byteWritten)	cout << "Color was not written to serial port \n";
+	else				cout << getIntFromColor(box->getColor());
+}
+
+int testApp::getIDToSend(int boxid)
 {
 	int order[64] = { 
 		0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 
@@ -217,42 +269,15 @@ void testApp::sendToArduino()
 		22, 23, 24, 25, 26, 27, 28, 29, 30, 31
 	};
 	
-	cout << "Sending Serial: \n";
-	
-	// start send to arduino
-	bool byteWritten = serial.writeByte('*');
-	if(!byteWritten)	cout << "* was not written to serial port \n";
-	else				cout << "*";
-
-	
 	for (int i = 0; i < 64; i++) 
 	{
-		sendBoxToArduino(order[i]);
+		if(boxid == order[i])
+		{
+			return i;
+		}
 	}
 	
-	cout << "\n";
-}
-
-void testApp::sendBoxToArduino(int boxid)
-{
-	Box * box = boxes->getBox(boxid);
-	
-	// send id
-	//bool byteWritten = serial.writeByte(box->getId());
-	//if(!byteWritten)	cout << "Id was not written to serial port \n";
-	
-	// send state
-	bool byteWritten = serial.writeByte(box->getState());
-	if(!byteWritten)	cout << "State was not written to serial port \n";
-	else				cout << box->getState();
-
-	
-	// send color (must convert to number)
-	byteWritten = serial.writeByte(getIntFromColor(box->getColor()));
-	if(!byteWritten)	cout << "Color was not written to serial port \n";
-	else				cout << getIntFromColor(box->getColor());
-	
-	cout << ",";
+	return DISABLED;
 }
 
 /* get color object from string name

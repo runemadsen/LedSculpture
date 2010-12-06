@@ -110,24 +110,24 @@ void BoxesController::createShape(int startX, int startY, int slots[], int slotl
  ________________________________________________________________ */
 
 
-void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid)
-{
-	userid = DISABLED;
-	
-	/*cout << "::::::::::: Update box called" << endl;
-	cout << "State: " << state << endl;
-	cout << "Color: " << "R: " << color.r << "G: " << color.g << "B: " << color.b << endl;
-	cout << "Userid: " << userid << endl;*/
+bool BoxesController::updateBox(int boxid, bool state, ofColor color, int userid)
+{	
+	bool returnVal = false;
 	
 	Box * box = getBox(boxid);
 	
 	if (box != NULL) 
 	{
+		if(box->getState() != state || box->getColor().r != color.r || box->getColor().g != color.g || box->getColor().b != color.b)
+		{
+			returnVal = true;
+		}
+		   
 		if(box->getState() != state && state) 
 		{			
 			Box * partner = findBoxWithoutPatner();
 			
-			cout << "Partner found id: " << partner->getId() << endl;
+			//cout << "Partner found id: " << partner->getId() << endl;
 			
 			box->setPartner(partner);
 		}
@@ -138,6 +138,8 @@ void BoxesController::updateBox(int boxid, bool state, ofColor color, int userid
 	{
 		cout << "Box not found \n";
 	}
+	
+	return returnVal;
 }
 
 /*	Get box without partner
