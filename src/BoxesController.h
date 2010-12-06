@@ -17,6 +17,8 @@ public:
 	
 	Box * getBox(int boxid);
 	
+	int getBoxesLength() { return _boxes.size(); }
+	
 	bool updateBox(int boxid, bool state, ofColor color, int userid);
 	
 	void printVars();

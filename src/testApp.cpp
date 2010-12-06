@@ -37,8 +37,6 @@ void testApp::update()
 	if(newData != NULL)
 	{
 		createBoxesFromData();
-		
-		//sendToArduino();
 	}
 	
 	boxes->update();
@@ -70,6 +68,12 @@ void testApp::draw()
 {
 	ofSetColor(255, 255, 255);
 	ofDrawBitmapString(ofToString(ofGetFrameRate(), 0), 10, 10);
+	
+	if(!enableHTTP)
+	{
+		ofDrawBitmapString("Press space to start HTTP calls", 10, 30);
+	}
+	
 	ofSetColor(0, 0, 0);
 	boxes->draw();
 }
@@ -124,17 +128,6 @@ void testApp::keyPressed(int key)
 	{
 		boxes->setProperty("size", 1);	
 	}
-	else if(key >= '0' && key <= '9')
-	{
-		Box * box = boxes->getBox(key - '0');
-		
-		bool updated = boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
-		
-		if(updated)
-		{
-			sendBoxToArduino(key - '0');
-		}
-	}
 	else if(key == ' ')
 	{
 		enableHTTP = !enableHTTP;
@@ -155,7 +148,25 @@ void testApp::keyPressed(int key)
 void testApp::keyReleased(int key){}
 void testApp::mouseMoved(int x, int y ){}
 void testApp::mouseDragged(int x, int y, int button){}
-void testApp::mousePressed(int x, int y, int button){}
+
+void testApp::mousePressed(int x, int y, int button)
+{
+	for (int i = 0; i < 64; i++) 
+	{
+		Box * box = boxes->getBox(i);
+		
+		if(x > box->getLoc().x && x < box->getLoc().x + box->getSize() && y > box->getLoc().y && y < box->getLoc().y + box->getSize())
+		{
+			bool updated = boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
+			
+			if(updated)
+			{
+				sendBoxToArduino(i);
+			}
+		}
+	}
+}
+
 void testApp::mouseReleased(int x, int y, int button){}
 void testApp::windowResized(int w, int h){}
 
@@ -239,6 +250,8 @@ void testApp::sendBoxToArduino(int boxid)
 	Box * box = boxes->getBox(boxid);
 	int idToSend = getIDToSend(boxid);
 	
+	cout << "> Sending Box Serial Data \n";
+	
 	// start send to arduino
 	bool byteWritten = serial.writeByte('*');
 	if(!byteWritten)	cout << "* was not written to serial port \n";
@@ -257,7 +270,7 @@ void testApp::sendBoxToArduino(int boxid)
 	// send color (must convert to number)
 	byteWritten = serial.writeByte(getIntFromColor(box->getColor()));
 	if(!byteWritten)	cout << "Color was not written to serial port \n";
-	else				cout << getIntFromColor(box->getColor());
+	else				cout << getIntFromColor(box->getColor()) << "\n";
 }
 
 int testApp::getIDToSend(int boxid)
