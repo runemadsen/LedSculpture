@@ -5,8 +5,8 @@ ________________________________________________________________ */
 
 BoxesController::BoxesController()
 {
-	_loc.set(33, 306);
-	_boxSize = 50;
+	_loc.set(30, 309);
+	_boxSize = 50 ;
 	
 	_curId = 0;
 	
@@ -154,7 +154,7 @@ bool BoxesController::updateBox(int boxid, bool state, ofColor color, int userid
 
 Box * BoxesController::findPartneredNeighbour(Box * box)
 {
-	float margin = (float) box->getSize() + 2;
+	float margin = (float) box->getSize() + 1;
 	
 	for (int i = 34; i < 64; i++) 
 	{
@@ -163,9 +163,15 @@ Box * BoxesController::findPartneredNeighbour(Box * box)
 		int xDiff = fabs(box->getLoc().x - partner->getLoc().x);
 		int yDiff = fabs(box->getLoc().y - partner->getLoc().y);
 		
-		if (partner->getState() && xDiff < margin && yDiff < margin) 
+		if (partner->getState()) 
 		{
-			return partner;
+			if( (xDiff == 0 && yDiff < margin) || (yDiff == 0 && xDiff < margin))
+			{
+				cout << "xDiff: " << xDiff << endl;
+				cout << "yDiff: " << yDiff << endl;
+			
+				return partner;
+			}
 		}
 	}
 	

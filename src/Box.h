@@ -4,6 +4,8 @@
 #include "ofMain.h"
 #include "Constants.h"
 #include "App.h"
+#include "Tween.h"
+
 class Constants;
 class Particles;
 
@@ -30,8 +32,8 @@ public:
 	ofPoint getLoc() { return _loc; }
 	int getSize() { return _boxSize; }
 	
-	void makeConnection() { _connectionMade = true; }
-	void stopConnection() { _connectionMade = false; }
+	void makeConnection();
+	void stopConnection();
 	
 	ofImage * getTexture() { return _texture; }
 
@@ -56,6 +58,8 @@ private:
 	Particles * _particles;
 	
 	ofImage * _texture;
+	
+	Tween _tween;
 };
 
 #endif

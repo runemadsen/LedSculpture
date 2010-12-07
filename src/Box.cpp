@@ -73,6 +73,12 @@ void Box::update()
 		_neighbour->stopConnection();
 		stopConnection();
 		_neighbour = NULL;
+		_tween.stop();
+	}
+	
+	if (_connectionMade) 
+	{
+		_tween.update();
 	}
 	
 	if(_particles != NULL)
@@ -88,21 +94,31 @@ void Box::draw()
 {		
 	ofFill();
 	
+	if(_state)
+	{
+		if (_connectionMade) 
+		{
+			int r = (255 - _color.r) * _tween.num;
+			int g = (255 - _color.g) * _tween.num;
+			int b = (255 - _color.b) * _tween.num;
+			
+			ofSetColor(_color.r + r, _color.g + g, _color.b + b);
+		}
+		else
+		{
+			ofSetColor(_color.r, _color.g, _color.b);
+		}
+		
+		ofFill();
+		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+		ofNoFill();
+		ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
+	}
+	
 	if(App::getInstance()->testMode)
 	{
-		if(_state)
-		{
-			if (_connectionMade) 
-				ofSetColor(255, 255, 255);
-			else
-				ofSetColor(_color.r, _color.g, _color.b);
-			
-			ofFill();
-			ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
-			ofNoFill();
-			ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
-		}
-		else 
+		
+		if(!_state)
 		{
 			ofSetColor(255, 255, 255);
 			ofNoFill();
@@ -119,6 +135,21 @@ void Box::draw()
 
 /* Getter / Setter
  _________________________________________________________________ */
+
+void Box::makeConnection() 
+{
+	_connectionMade = true;
+	
+	_tween.stop();
+	_tween.setup(100, 1, -1, Easing::QuadEaseIn, 300);
+	_tween.play();
+}
+
+void Box::stopConnection() 
+{ 
+	_tween.stop();
+	_connectionMade = false; 
+}
 
 void Box::setPartner(Box * partner)
 {	

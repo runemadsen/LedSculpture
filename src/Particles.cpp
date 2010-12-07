@@ -11,13 +11,13 @@ Particles::Particles(Box * model)
 	PSetting setting1;
 	setting1.percent = 1;
 	setting1.sizeMin = 10;
-	setting1.sizeMax = 40;
+	setting1.sizeMax = 30;
 	setting1.dirMin = 0.5;
 	setting1.dirMax = 1;
 	//setting1.dirMin = 0.2;
 	//setting1.dirMax = 0.9;
-	setting1.lifeMin = 0.4;
-	setting1.lifeMax = 0.4;
+	setting1.lifeMin = 0.8;
+	setting1.lifeMax = 2;
 	settings.push_back(setting1);
 	
 	/*PSetting setting2;
@@ -77,14 +77,18 @@ void Particles::update()
 	{
 		if(numParticles < MAX_PARTICLES)
 		{
-			for(int i = 0; i < 100; i++)
+			for(int i = 0; i < 1; i++)
 			{
-				spawn(numParticles);
+				// take this out and fix to better solution
+				if(ofRandomuf() > 0.5)
+				{
+					spawn(numParticles);
 				
-				numParticles++;
+					numParticles++;
 				
-				if(numParticles >= MAX_PARTICLES)
-					break;
+					if(numParticles >= MAX_PARTICLES)
+						break;
+				}
 			}
 		}
 	}
@@ -112,6 +116,7 @@ void Particles::update()
 		
 		if(life[i][0] <= 0.0) 
 		{
+			// make sure the particle disappears when life is over
 			setParticleColor(i, 1.0, 1.0, 1.0, 0);
 			
 			if(_model->visible())	
