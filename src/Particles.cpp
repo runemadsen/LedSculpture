@@ -183,6 +183,7 @@ void Particles::spawn(int i)
 				partnerLoc.x = _model->getPartner()->getLoc().x;
 				partnerLoc.y = _model->getPartner()->getLoc().y;
 				
+				// make them end in the middle of the box
 				partnerLoc.x += (_model->getPartner()->getSize() / 2) - (size / 2);
 				partnerLoc.y += (_model->getPartner()->getSize() / 2) - (size / 2);
 				
