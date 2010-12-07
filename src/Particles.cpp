@@ -112,6 +112,8 @@ void Particles::update()
 		
 		if(life[i][0] <= 0.0) 
 		{
+			setParticleColor(i, 1.0, 1.0, 1.0, 0);
+			
 			if(_model->visible())	
 			{
 				spawn(i);
