@@ -43,10 +43,12 @@ private:
 	
 	GLuint		particleVBO[3];
 	
+	
 	float		dim[MAX_PARTICLES];			// particle size (w/h)
 	PVector		pos[MAX_PARTICLES*4];		// vertex (quad) of particle
 	PTexture	texcords[MAX_PARTICLES*4];	// texture coords
 	PColor		color[MAX_PARTICLES*4];		// particle color rgba
+	PVector		dest[MAX_PARTICLES];
 	
 	float		vel[MAX_PARTICLES][3];		
 	float		acc[MAX_PARTICLES][3];

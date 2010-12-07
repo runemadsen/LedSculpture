@@ -14,16 +14,16 @@ void testApp::setup()
 		
 	boxes = new BoxesController();
 	
-	url = "http://versionize.com/ledsculpture/displaycells.php";
+	url = "http://versionize.com/ledsculpture/displaycells.php?checkSessions";
 	ofAddListener(httpUtils.newResponseEvent, this, &testApp::newResponse);
 	httpUtils.start();
 	
-	serial.enumerateDevices();
+	/*serial.enumerateDevices();
 	
 	if(serial.setup("/dev/tty.usbserial-A800euZ6", 9600))
 	{
 		printf("serial is setup!");
-	}
+	}*/
 	
 	lastReceived = ofGetElapsedTimeMillis();
 	enableHTTP = false;
@@ -50,7 +50,7 @@ void testApp::update()
 	}
 	
 	// check serial response
-	if (serial.available() > 0)
+	/*if (serial.available() > 0)
 	{
 		while(serial.available() > 0)
 		{
@@ -58,7 +58,7 @@ void testApp::update()
 		}
 		
 		cout << "\n";
-	}
+	}*/
 }
 
 /* Draw
@@ -83,11 +83,11 @@ void testApp::draw()
 
 void testApp::keyPressed(int key)
 {
-	if(key == 'x')
+	if(key == 'f')
 	{
-		boxes->setProperty("x", -1);
+		ofToggleFullscreen();
 	}
-	else if(key == 'Y')
+	/*else if(key == 'Z')
 	{
 		// send test
 		cout << "Sending test \n";
@@ -103,10 +103,14 @@ void testApp::keyPressed(int key)
 		
 		byteWritten = serial.writeByte('y');
 		if(!byteWritten)	cout << "y was not written to serial port \n";
-	}
+	}*/
 	else if(key == 'p')
 	{
 		boxes->printVars();
+	}
+	else if(key == 'x')
+	{
+		boxes->setProperty("x", -1);
 	}
 	else if(key == 'X')
 	{
@@ -118,15 +122,15 @@ void testApp::keyPressed(int key)
 	}
 	else if(key == 'Y')
 	{
-		boxes->setProperty("y", -1);
+		boxes->setProperty("y", 1);
 	}
 	else if(key == 's')
 	{
-		boxes->setProperty("size", -1);
+		boxes->setProperty("size", -0.5);
 	}
 	else if(key == 'S')
 	{
-		boxes->setProperty("size", 1);	
+		boxes->setProperty("size", 0.5);	
 	}
 	else if(key == ' ')
 	{
@@ -155,15 +159,26 @@ void testApp::mousePressed(int x, int y, int button)
 	{
 		Box * box = boxes->getBox(i);
 		
-		if(x > box->getLoc().x && x < box->getLoc().x + box->getSize() && y > box->getLoc().y && y < box->getLoc().y + box->getSize())
+		if(box != NULL)
 		{
-			bool updated = boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
+			int boxX = box->getLoc().x + boxes->getX();
+			int boxY = box->getLoc().y + boxes->getY();
 			
-			if(updated)
+			if(x > boxX && x < boxX + box->getSize() && y > boxY && y < boxY + box->getSize())
 			{
-				sendBoxToArduino(i);
+				bool updated = boxes->updateBox(box->getId(), !box->getState(), box->getColor(), box->getUserId());
+				
+				if(updated)
+				{
+					//sendBoxToArduino(i);
+				}
 			}
 		}
+		else 
+		{
+			cout << "Box not found in mousepress, id: " << i << endl;
+		}
+
 	}
 }
 
@@ -172,7 +187,7 @@ void testApp::windowResized(int w, int h){}
 
 void testApp::makeHTTPCall()
 {
-	cout << "HTTP Call requested" << endl;
+	//cout << "HTTP Call requested" << endl;
 	
 	httpUtils.addUrl(url);
 }
@@ -192,7 +207,7 @@ void testApp::newResponse(ofxHttpResponse & response)
 		makeHTTPCall();
 	}*/
 	
-	cout << "HTTP Call received" << endl;
+	//cout << "HTTP Call received" << endl;
 }
 
 void testApp::newError(string error)
@@ -205,7 +220,7 @@ void testApp::newError(string error)
 
 void testApp::parseJSON(string s) 
 {
-	cout << "HTTP Call parsing" << endl;
+	//cout << "HTTP Call parsing" << endl;
 	
 	bool parsingSuccessful = reader.parse(s, root);
 	

@@ -5,7 +5,7 @@ ________________________________________________________________ */
 
 BoxesController::BoxesController()
 {
-	_loc.set(0, 0);
+	_loc.set(33, 306);
 	_boxSize = 50;
 	
 	_curId = 0;
@@ -209,6 +209,8 @@ void BoxesController::setProperty(string p, float add)
 		_boxSize += add;
 		
 		_boxes.clear();
+		
+		_curId = 0;
 		
 		createBoxes();
 	}

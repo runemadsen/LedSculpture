@@ -16,8 +16,8 @@ Particles::Particles(Box * model)
 	setting1.dirMax = 1;
 	//setting1.dirMin = 0.2;
 	//setting1.dirMax = 0.9;
-	setting1.lifeMin = 0.15;
-	setting1.lifeMax = 0.55;
+	setting1.lifeMin = 0.6;
+	setting1.lifeMax = 2.0;
 	settings.push_back(setting1);
 	
 	/*PSetting setting2;
@@ -72,9 +72,7 @@ void Particles::init()
  _______________________________________________________________________ */
 
 void Particles::update() 
-{	
-	//cout << "Update" << endl;
-	
+{		
 	if(_model->visible())	
 	{
 		if(numParticles < MAX_PARTICLES)
@@ -93,11 +91,14 @@ void Particles::update()
 	
 	for(int i=0; i<numParticles; i++) 
 	{
-		vel[i][0] += acc[i][0];
-		vel[i][1] += acc[i][1];
-		//vel[i][2] += acc[i][2];
-		
-		addPosition(i, vel[i][0], vel[i][1], vel[i][2]);
+		// check if position is outside destination
+		if(fabs(pos[(i*4)+0].x - dest[i].x) > 10 || fabs(pos[(i*4)+0].y - dest[i].y) > 10)
+		{
+			vel[i][0] += acc[i][0];
+			vel[i][1] += acc[i][1];
+			
+			addPosition(i, vel[i][0], vel[i][1], vel[i][2]);
+		}
 		
 		vel[i][0] *= damping[i];
 		vel[i][1] *= damping[i];
@@ -107,7 +108,7 @@ void Particles::update()
 		life[i][0] -= life[i][1];
 		
 		//setParticleColor(i, 1.0, 1.0, 1.0, life[i][0]);
-		setParticleAlpha(i, life[i][0]);
+		//setParticleAlpha(i, life[i][0]);
 		
 		if(life[i][0] <= 0.0) 
 		{
@@ -146,7 +147,7 @@ void Particles::spawn(int i)
 			ofPoint thePoint = _model->getLoc();
 			
 			// adjust for image width
-			float margin = (size / 2);
+			float margin = size / 2; // divide by 2 if on the edges
 			thePoint.x -= margin;
 			thePoint.y -= margin;
 			
@@ -181,6 +182,13 @@ void Particles::spawn(int i)
 				ofxVec2f partnerLoc;
 				partnerLoc.x = _model->getPartner()->getLoc().x;
 				partnerLoc.y = _model->getPartner()->getLoc().y;
+				
+				partnerLoc.x += (_model->getPartner()->getSize() / 2) - (size / 2);
+				partnerLoc.y += (_model->getPartner()->getSize() / 2) - (size / 2);
+				
+				// save destination for later
+				dest[i].x = partnerLoc.x;
+				dest[i].y = partnerLoc.y;
 				
 				direction.set(partnerLoc - thePoint);
 			}

@@ -15,6 +15,9 @@ public:
 	void draw();
 	void setProperty(string p, float add);
 	
+	int getX() { return _loc.x; }
+	int getY() { return _loc.y; }
+	
 	Box * getBox(int boxid);
 	
 	int getBoxesLength() { return _boxes.size(); }
