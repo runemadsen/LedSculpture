@@ -127,9 +127,16 @@ bool BoxesController::updateBox(int boxid, bool state, ofColor color, int userid
 		{			
 			Box * partner = findBoxWithoutPatner();
 			
-			//cout << "Partner found id: " << partner->getId() << endl;
-			
 			box->setPartner(partner);
+			
+			// see if any neighbours are on
+			Box * neighbour = findPartneredNeighbour(partner);
+			
+			if (neighbour != NULL) 
+			{
+				partner->setNeighbour(neighbour);
+			}
+			
 		}
 		
 		box->updateState(state, color, userid);
@@ -140,6 +147,29 @@ bool BoxesController::updateBox(int boxid, bool state, ofColor color, int userid
 	}
 	
 	return returnVal;
+}
+
+/*	Find center partner box with state on
+ ________________________________________________________________ */
+
+Box * BoxesController::findPartneredNeighbour(Box * box)
+{
+	float margin = (float) box->getSize() + 2;
+	
+	for (int i = 34; i < 64; i++) 
+	{
+		Box * partner = getBox(i);
+		
+		int xDiff = fabs(box->getLoc().x - partner->getLoc().x);
+		int yDiff = fabs(box->getLoc().y - partner->getLoc().y);
+		
+		if (partner->getState() && xDiff < margin && yDiff < margin) 
+		{
+			return partner;
+		}
+	}
+	
+	return NULL;
 }
 
 /*	Get box without partner

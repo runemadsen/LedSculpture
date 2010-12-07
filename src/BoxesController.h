@@ -38,6 +38,7 @@ private:
 	void createShape(int startX, int startY, int slots[], int slotlength, int numCols);
 	
 	Box * findBoxWithoutPatner();
+	Box * findPartneredNeighbour(Box * box);
 	
 	int _curId;
 };

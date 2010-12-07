@@ -11,6 +11,10 @@ Box::Box(int id, float x, float y, int boxSize)
 	_loc.y = y;
 	_boxSize = boxSize;
 	
+	_connectionMade = false;
+	
+	_neighbour = NULL;
+	
 	_state = false;
 	_userid = DISABLED;
 	
@@ -49,6 +53,13 @@ void Box::updateState(bool state, ofColor color, int userid)
 	{
 		_partner = NULL;
 	}
+	
+	if(!_state && _neighbour != NULL)
+	{
+		_neighbour->stopConnection();
+		stopConnection();
+		_neighbour = NULL;
+	}
 }
 
 
@@ -74,7 +85,11 @@ void Box::draw()
 	{
 		if(_state)
 		{
-			ofSetColor(_color.r, _color.g, _color.b);
+			if (_connectionMade) 
+				ofSetColor(255, 255, 255);
+			else
+				ofSetColor(_color.r, _color.g, _color.b);
+			
 			ofFill();
 			ofRect(_loc.x, _loc.y, _boxSize, _boxSize);
 			ofNoFill();
@@ -109,4 +124,11 @@ void Box::setPartner(Box * partner)
 		cout << "Partner was null in setPartner \n";
 	}
 
+}
+
+void Box::setNeighbour(Box * neighbour)
+{	
+	makeConnection();
+	_neighbour = neighbour;
+	_neighbour->makeConnection();
 }

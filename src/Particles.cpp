@@ -16,8 +16,8 @@ Particles::Particles(Box * model)
 	setting1.dirMax = 1;
 	//setting1.dirMin = 0.2;
 	//setting1.dirMax = 0.9;
-	setting1.lifeMin = 0.6;
-	setting1.lifeMax = 2.0;
+	setting1.lifeMin = 0.4;
+	setting1.lifeMax = 0.4;
 	settings.push_back(setting1);
 	
 	/*PSetting setting2;
@@ -72,7 +72,7 @@ void Particles::init()
  _______________________________________________________________________ */
 
 void Particles::update() 
-{		
+{	
 	if(_model->visible())	
 	{
 		if(numParticles < MAX_PARTICLES)

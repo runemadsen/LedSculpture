@@ -25,15 +25,22 @@ public:
 	int getUserId() { return _userid; }
 	ofColor getColor() { return _color; }
 	Box * getPartner() { return _partner; }
+	Box * getNeighbour() { return _neighbour; }
 	bool visible() { return _state; }
 	ofPoint getLoc() { return _loc; }
 	int getSize() { return _boxSize; }
 	
+	void makeConnection() { _connectionMade = true; }
+	void stopConnection() { _connectionMade = false; }
+	
 	ofImage * getTexture() { return _texture; }
 
 	void setPartner(Box * partner);
+	void setNeighbour(Box * neighbour);
 	
 private:
+	
+	bool _connectionMade;
 	
 	int _id;
 	bool _state;
@@ -44,6 +51,7 @@ private:
 	int _boxSize;
 	
 	Box * _partner;
+	Box * _neighbour;
 	
 	Particles * _particles;
 	
