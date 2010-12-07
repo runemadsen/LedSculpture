@@ -68,6 +68,13 @@ void Box::updateState(bool state, ofColor color, int userid)
 
 void Box::update()
 {
+	if(_neighbour != NULL && !_neighbour->getState())
+	{
+		_neighbour->stopConnection();
+		stopConnection();
+		_neighbour = NULL;
+	}
+	
 	if(_particles != NULL)
 	{
 		_particles->update();
